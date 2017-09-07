@@ -1,0 +1,18 @@
+{
+  "appName": "cedr-generic",
+  "dataServices": {"bookmarks":"lkuptranslatormain", "data":"main", "lookup":"lkupmain", "config":"jsonmain"},
+  "dataServer": [
+    {"id": "dev", "url": "https://dsd-web6.dev.demo.census.gov", "path": "/cgi-bin/broker", "search": "?_service=sas_serv1&_debug=0&_program=cedr.sasapp_{{service}}.sas&s_appName={{appName}}"},
+    {"id": "test", "url": "https://wdob.dev.adsd.census.gov", "path": "/cgi-bin/broker", "search": "?_service=sas_serv1&_debug=0&_program=cedr.sasapp_{{service}}.sas&s_appName={{appName}}"},
+    {"id": "prod", "url": "https://www.census.gov", "path": "/cgi-bin/broker", "search": "?_service=sas_serv1&_debug=0&_program=cedr.sasapp_{{service}}.sas&s_appName={{appName}}"}
+  ],
+  "mapServices": {"print":"Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"},
+  "mapServer": [
+    {"id" : "dev", "url": "https://gis.geo.census.gov", "path": "/arcgis/rest/services/{{service}}"},
+    {"id" : "test", "url": "https://gis.geo.census.gov", "path": "/arcgis/rest/services/{{service}}"},
+    {"id" : "prod", "url": "https://gis.geo.census.gov", "path": "/arcgis/rest/services/{{service}}"}
+  ],
+  "configurationServer": [
+    {"id": "dev", "url": "", "path": "./assets/", "name": "app.json"}
+  ]
+}
