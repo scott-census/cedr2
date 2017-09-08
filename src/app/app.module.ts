@@ -16,10 +16,9 @@ import { CoreModule } from './core/core.module';
     CoreModule
   ],
   providers: [
-    ConfigService,
     { provide: APP_INITIALIZER,
-      useFactory: (configService: ConfigService) => () => configService.load(),
       deps: [ConfigService],
+      useFactory: (configService: ConfigService) => () => configService.load(),
       multi: true
     }
   ],

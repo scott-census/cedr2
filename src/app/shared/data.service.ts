@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class DataService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   getData(url: string): Promise<any> {
     return this.http
