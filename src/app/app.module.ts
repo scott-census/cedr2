@@ -1,8 +1,9 @@
-import { NgModule, APP_INITIALIZER, FactoryProvider } from '@angular/core';
+import { NgModule, APP_INITIALIZER, FactoryProvider, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { CedrWidgetsModule } from './cedr-widgets/cedr-widgets.module';
 import { ConfigService } from './core/config.service';
 import { CoreModule } from './core/core.module';
 
@@ -13,6 +14,7 @@ import { CoreModule } from './core/core.module';
   imports: [
     BrowserModule,
     HttpModule,
+    CedrWidgetsModule,
     CoreModule
   ],
   providers: [
@@ -22,6 +24,7 @@ import { CoreModule } from './core/core.module';
       multi: true
     }
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
