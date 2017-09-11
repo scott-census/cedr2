@@ -1,0 +1,2017 @@
+{
+  "globals": {
+    "banner_text": "Enter text crediting program",
+    "app_name": "SAHIE",
+    "email_address": "username@domain",
+    "max_selected": 100,
+    "current_year": "2014"
+  },
+  "layout": {
+    "layout_key": "menu",
+    "layouts": {
+      "map": {
+        "show": ["map-viz"],
+        "hide": ["grid-viz", "trends-viz"]
+      },
+      "grid": {
+        "show": ["grid-viz"],
+        "hide": ["map-viz", "trends-viz"]
+      },
+      "trends": {
+        "show": ["trends-viz"],
+        "hide": ["map-viz", "grid-viz"]
+      }
+    },
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "set",
+        "event": "init"
+      },
+      {
+        "target": "menu",
+        "func": "change",
+        "event": "selection_selected"
+      }
+    ]
+  },
+  "application_content_sidebar": {
+    "hidden": false,
+    "subscribe": [
+      {
+        "target": "show_sidebar",
+        "func": "show",
+        "event": "button_submit"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "hide",
+        "event": "button_submit"
+      }
+    ]
+  },
+  "instructions": {
+    "content": [
+      {
+        "text": "The 138% to 400% IPR category is currently available starting 2012. The gap between 2007 and 2008 represents a switch from the Current Population Survey to the American Community Survey.",
+        "when": {
+          "against": "menu",
+          "value": ["trends-viz"]
+        }
+      },
+      {
+        "text": "The 138% to 400% IPR category is currently available starting 2012."
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "menu",
+        "func": "set_text",
+        "event": "selection_selected"
+      }
+    ]
+  },
+  "menu": {
+    "data": [
+      {
+        "id": "map",
+        "label": "Map",
+        "selected": true
+      },
+      {
+        "id": "grid",
+        "label": "Table",
+        "selected": false
+      },
+      {
+        "id": "trends",
+        "label": "Trends",
+        "selected": false
+      }
+    ]
+  },
+  "download": {
+    "label": "Download",
+    "disabled": false
+  },
+  "download_options": {
+    "hidden": true,
+    "subscribe": [
+      {
+        "target": "download",
+        "func": "toggle",
+        "event": "button_submit"
+      },
+      {
+        "target": "jpeg",
+        "func": "hide",
+        "event": "button_submit"
+      },
+      {
+        "target": "CSV",
+        "func": "hide",
+        "event": "button_submit"
+      },
+      {
+        "target": "PDF",
+        "func": "hide",
+        "event": "button_submit"
+      },
+      {
+        "target": "ZIP",
+        "func": "hide",
+        "event": "button_submit"
+      }
+    ]
+  },
+  "jpeg": {
+    "label": "JPEG",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "enable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "disable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "enable",
+        "event": "map_init"
+      }
+    ]
+  },
+  "print": {
+    "label": "Print",
+    "disabled": false
+  },
+  "CSV": {
+    "label": "CSV",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "disable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "enable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "disable",
+        "event": "map_init"
+      }
+    ]
+  },
+  "PDF": {
+    "label": "PDF",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "disable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "enable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "enable",
+        "event": "map_init"
+      }
+    ]
+  },
+  "ZIP": {
+    "label": "ZIP",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "disable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "enable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "disable",
+        "event": "map_init"
+      }
+    ]
+  },
+  "Share": {
+    "label": "Share"
+  },
+  "Feedback": {
+    "label": "Feedback"
+  },
+  "Help": {
+    "label": "Help"
+  },
+  "show_sidebar": {
+    "label": "Show Menu",
+    "hidden": true,
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "hide",
+        "event": "init"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "show",
+        "event": "button_submit"
+      },
+      {
+        "target": "show_sidebar",
+        "func": "hide",
+        "event": "button_submit"
+      }
+    ]
+  },
+  "hide_sidebar": {
+    "label": "Hide Menu",
+    "subscribe": [
+      {
+        "target": "show_sidebar",
+        "func": "show",
+        "event": "button_submit"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "hide",
+        "event": "button_submit"
+      }
+    ]
+  },
+  "utilities": {
+    "subscribe": [
+      {
+        "target": "Share",
+        "func": "share",
+        "event": "button_submit"
+      },
+      {
+        "target": "Feedback",
+        "func": "feedback",
+        "event": "button_submit"
+      },
+      {
+        "target": "Help",
+        "func": "help",
+        "event": "button_submit"
+      },
+      {
+        "target": "ResetButton",
+        "func": "reset",
+        "event": "button_submit"
+      }
+    ],
+    "share": {
+      "url": "http://api.addthis.com/oexchange/0.8/offer?url=http://www.census.gov/did/www/saipe/data/",
+      "options": "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500"
+    },
+    "feedback": {
+      "options": "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=280",
+      "url": "resources/templates/feedback.txt"
+    },
+    "help": {
+      "options": "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600",
+      "url": [
+        {
+          "url": "resources/templates/map-help.htm",
+          "when": {
+            "against": "menu",
+            "value": ["map"]
+          }
+        },
+        {
+          "url": "resources/templates/trends-help.htm",
+          "when": {
+            "against": "menu",
+            "value": ["trends"]
+          }
+        },
+        {
+          "url": "resources/templates/table-help.htm",
+          "when": {
+            "against": "menu",
+            "value": ["grid"]
+          }
+        },
+        {
+          "url": "resources/templates/help.txt"
+        }
+      ]
+    },
+    "reset": {
+      "preserve": ["s_appName", "menu"]
+    }
+  },
+  "s_measures": {
+    "label": "Percent Insured or Uninsured:",
+    "data": [
+      {
+        "id": "ui_snc",
+        "label": "Uninsured",
+        "selected": true
+      },
+      {
+        "id": "ic_snc",
+        "label": "Insured",
+        "selected": false
+      }
+    ]
+  },
+  "statefips_button": {
+    "label": "States",
+    "base_label": " States: ",
+    "subscribe": [
+      {
+        "target": "s_statefips",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      }
+    ]
+  },
+  "s_statefips": {
+    "size":"medium",
+    "default_value": "none",
+    "options": {
+      "height": 400,
+      "filterToolbar": true,
+      "filterToolbarOptions": {
+        "searchOnEnter": false
+      }
+    },
+    "data_query": {
+      "lookupID": "statefips",
+      "filter_param": ["s_appName", "menu", "s_measures", "s_statefips", "s_searchtype", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+      "override": {
+        "fields": {
+          "s_searchtype": "s"
+        }
+      }
+    },
+    "text": {
+      "default": "Selected: !S! of !T! total"
+    },
+    "config": {
+      "enableFilter": true,
+      "columnDefs": [
+        {
+          "field": "label",
+          "headerName": "State Name",
+          "checkboxSelection": true,
+          "width": 200
+        },
+        {
+          "field": "stabrev",
+          "headerName": "ST",
+          "width": 80
+        },
+        {
+          "field": "id",
+          "headerName": "FIPS",
+          "hide": true
+        },
+        {
+          "field": "selected",
+          "hide": true
+        }
+      ],
+      "multiselect": true,
+      "toolbar": [ true, "bottom" ]
+    },
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      },
+      {
+        "target": "statefips_button",
+        "func": "open",
+        "event": "button_submit"
+      },
+      {
+        "target": "s_stcou",
+        "func": "addToSelection",
+        "event": "add_states"
+      },
+      {
+        "target": "map-viz",
+        "func": "update_selected",
+        "event": "map_s_statefips_selection_selected"
+      }
+    ],
+    "update_when_changed": ["s_statefips", "s_measures"]
+  },
+  "stcou_button": {
+    "label": "Counties",
+    "base_label": " Counties: ",
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "disable",
+        "event": "init",
+        "when": {
+          "not": {
+            "against": "s_racecat",
+            "value": ["0"]
+          }
+        }
+      },
+      {
+        "target": "system",
+        "func": "enable",
+        "event": "init",
+        "when": {
+          "against": "s_racecat",
+          "value": ["0"]
+        }
+      },
+      {
+        "target": "s_racecat",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "not": {
+            "against": "s_racecat",
+            "value": ["0"]
+          }
+        }
+      },
+      {
+        "target": "s_racecat",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "against": "s_racecat",
+          "value": ["0"]
+        }
+      },
+      {
+        "target": "s_stcou",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      }
+    ]
+  },
+  "s_stcou": {
+    "size": "medium",
+    "default_value": "none",
+    "options": {
+      "height": 400,
+      "filterToolbar": true,
+      "filterToolbarOptions": {
+        "searchOnEnter": false
+      }
+    },
+    "data_query": {
+      "lookupID": "stcou",
+      "filter_param": ["s_appName", "menu", "s_measures", "s_year", "map_yearSelector", "s_statefips", "s_stcou", "s_searchtype"],
+      "override": [
+        {
+          "fields": {
+            "s_searchtype": "c"
+          },
+          "set": "false"
+        },
+        {
+          "when": {
+            "against": "menu",
+            "value": ["map-viz"]
+          },
+          "substitute": {
+            "s_year": "noop",
+            "map_yearSelector": "s_year"
+          }
+        }
+      ]
+    },
+    "secondary_select": {
+      "field": "id",
+      "regex": "^[0-9][0-9]",
+      "message": "add_states",
+      "flatten": true
+    },
+    "text": {
+      "over_max": "MAXIMUM ",
+      "default": "Selected: !S! of !T! total"
+    },
+    "config": {
+      "enableFilter": true,
+      "columnDefs": [
+        {
+          "field": "label",
+          "headerName": "County Name",
+          "checkboxSelection": true,
+          "filter": "text",
+          "width": 300
+        },
+        {
+          "field": "id",
+          "headerName": "FIPS",
+          "hide": true
+        },
+        {
+          "field": "selected",
+          "hide": true
+        }
+      ],
+      "multiselect": true,
+      "toolbar": [ true, "bottom" ]
+    },
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      },
+      {
+        "target": "stcou_button",
+        "func": "open",
+        "event": "button_submit"
+      },
+      {
+        "target": "map-viz",
+        "func": "update_selected",
+        "event": "map_s_stcou_selection_selected"
+      }
+    ],
+    "update_when_changed": ["s_statefips", "s_year"]
+  },
+  "years_button": {
+    "label": "Years",
+    "base_label": " Years: ",
+    "subscribe": [
+      {
+        "target": "s_year",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      },
+      {
+        "target": "trends-viz",
+        "func": "hide",
+        "event": "trends_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "hide",
+        "event": "map_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "show",
+        "event": "grid_init"
+      }
+    ]
+  },
+  "s_year": {
+    "size": "narrow",
+    "default_value": "first",
+    "data_query": {
+      "lookupID": "year",
+      "sortname": "id",
+      "sortorder": "desc"
+    },
+    "options": {
+      "showDisabled": true,
+      "instructions": "Some years are unavailable if certain income or age groups are selected."
+    },
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      },
+      {
+        "target": "years_button",
+        "func": "open",
+        "event": "button_submit"
+      }
+    ],
+    "config": {
+      "columnDefs": [
+        {
+          "field": "label",
+          "headerName": "Year",
+          "checkboxSelection": true,
+          "sort": {
+            "direction": "desc"
+          },
+          "width": 150
+        },
+        {
+          "field": "id",
+          "visible": false
+        },
+        {
+          "field": "disabled",
+          "hide": true
+        },
+        {
+          "field": "selected",
+          "hide": true
+        }
+      ],
+      "multiselect": true,
+      "height": 206,
+      "toolbar": [ true, "bottom" ]
+    },
+    "update_when_changed": ["s_iprcat", "s_agecat"]
+  },
+  "map_yearSelector": {
+    "label": "Year",
+    "base_label": " Year: ",
+    "has_own_data": true,
+    "default_value": "first",
+    "data": [
+      {
+        "id": "2014",
+        "label": "2014"
+      },
+      {
+        "id": "2013",
+        "label": "2013"
+      },
+      {
+        "id": "2012",
+        "label": "2012"
+      },
+      {
+        "id": "2011",
+        "label": "2011"
+      },
+      {
+        "id": "2010",
+        "label": "2010"
+      },
+      {
+        "id": "2009",
+        "label": "2009"
+      },
+      {
+        "id": "2008",
+        "label": "2008"
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "hide",
+        "event": "init",
+        "when": {
+          "not": {
+            "against": "menu",
+            "value": ["map"]
+          }
+        }
+      },
+      {
+        "target": "system",
+        "func": "show",
+        "event": "init",
+        "when": {
+          "against": "menu",
+          "value": ["map"]
+        }
+      },
+      {
+        "target": "trends-viz",
+        "func": "hide",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "hide",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "show",
+        "event": "map_init"
+      },
+      {
+        "target": "map_yearSelector",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      }
+    ]
+  },
+  "s_agecat": {
+    "base_label": " Age Group: ",
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Under 19 years not available for race or sex subgroups; 50 to 64 not available for counties prior to 2010."
+    },
+    "update_when_changed": ["s_racecat", "s_sexcat", "s_year", "s_searchtype", "map_yearSelector"],
+    "data": [
+      {
+        "id": "0",
+        "label": "Under 65 years",
+        "selected": true
+      },
+      {
+        "id": "1",
+        "label": "18 to 64 years",
+        "selected": false
+      },
+      {
+        "id": "2",
+        "label": "40 to 64 years",
+        "selected": false
+      },
+      {
+        "id": "3",
+        "label": "50 to 64 years",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "map_yearSelector": ["2006", "2007", "2008", "2009"],
+            "menu": ["map"],
+            "s_searchtype": ["c", "sc"]
+          }
+        }
+      },
+      {
+        "id": "4",
+        "label": "Under 19 years",
+        "selected": false,
+        "disableWhen": {
+          "s_racecat": ["1", "2", "3"],
+          "s_sexcat": ["1", "2"]
+        }
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
+    ]
+  },
+  "s_racecat": {
+    "base_label": " Race: ",
+    "update_when_changed": ["s_searchtype", "s_agecat"],
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Race subgroups are not available for the Under 19 age group or Counties."
+    },
+    "data": [
+      {
+        "id": "0",
+        "label": "All Races",
+        "selected": true
+      },
+      {
+        "id": "1",
+        "label": "White alone, Not Hispanic",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"],
+          "s_searchtype": ["c", "sc"]
+        }
+      },
+      {
+        "id": "2",
+        "label": "Black alone, Not Hispanic",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"],
+          "s_searchtype": ["c", "sc"]
+        }
+      },
+      {
+        "id": "3",
+        "label": "Hispanic (any race)",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"],
+          "s_searchtype": ["c", "sc"]
+        }
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
+    ]
+  },
+  "s_sexcat": {
+    "base_label": " Sex: ",
+    "update_when_changed": ["s_agecat"],
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Sex subgroups are not available for the Under 19 age group."
+    },
+    "data": [
+      {
+        "id": "0",
+        "label": "Both Sexes",
+        "selected": true
+      },
+      {
+        "id": "1",
+        "label": "Male Only",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"]
+        }
+      },
+      {
+        "id": "2",
+        "label": "Female Only",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"]
+        }
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
+    ]
+  },
+  "s_iprcat": {
+    "base_label": " Income: ",
+    "update_when_changed": ["s_year"],
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Some income groups are not available for all years."
+    },
+    "data": [
+      {
+        "id": "0",
+        "label": "All Incomes",
+        "selected": true
+      },
+      {
+        "id": "1",
+        "label": "<= 200% of Poverty",
+        "selected": false
+      },
+      {
+        "id": "2",
+        "label": "<= 250% of Poverty",
+        "selected": false
+      },
+      {
+        "id": "3",
+        "label": "<= 138% of Poverty",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "s_year": ["2006", "2007"],
+            "menu": ["grid", "trends"]
+          },
+          "and1": {
+            "map_yearSelector": ["2006", "2007"],
+            "menu": ["map"]
+          }
+        }
+      },
+      {
+        "id": "4",
+        "label": "<= 400% of Poverty",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "s_year": ["2006", "2007"],
+            "menu": ["grid", "trends"]
+          },
+          "and1": {
+            "map_yearSelector": ["2006", "2007"],
+            "menu": ["map"]
+          }
+        }
+      },
+      {
+        "id": "5",
+        "label": "138% to 400% of Poverty",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "s_year": ["2006", "2007", "2008", "2009", "2010", "2011"],
+            "menu": ["grid", "trends"]
+          },
+          "and1": {
+            "map_yearSelector": ["2006", "2007", "2008", "2009", "2010", "2011"],
+            "menu": ["map"]
+          }
+        }
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
+    ]
+  },
+  "s_searchtype": {
+    "label": "Show State Data Only",
+    "data": [
+      {
+        "id": "s",
+        "label": "State",
+        "selected": false
+      },
+      {
+        "id": "sc",
+        "label": "County",
+        "selected": true
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "disable",
+        "event": "init",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "s_racecat",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "s_agecat",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map-viz"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "map_yearSelector",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "menu",
+        "func": "check",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "menu",
+              "value": ["map"]
+            },
+            {
+              "against": "s_agecat",
+              "value": ["3"]
+            },
+            {
+              "against": "map_yearSelector",
+              "in": ["2006", "2007", "2008", "2009"]
+            }
+          ]
+        }
+      },
+      {
+        "target": "menu",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "system",
+        "func": "enable",
+        "event": "init",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "s_racecat",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "s_agecat",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "menu",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "map_yearSelector",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "ResetButton": {
+    "label": "Reset"
+  },
+  "map-viz": {
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "makeActive",
+        "event": "layout_change"
+      },
+      {
+        "target": "system",
+        "func": "resize",
+        "event": "resize"
+      },
+      {
+        "target": "map-viz",
+        "func": "rangeSelectorFilter",
+        "event": "range_selected"
+      },
+      {
+        "target": "s_searchtype",
+        "func": "geoSelectorChange",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_measures",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "map_yearSelector",
+        "func": "yearSelectorChange",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_statefips",
+        "func": "zoomToSelections",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_stcou",
+        "func": "zoomToSelections",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_agecat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_racecat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_sexcat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_iprcat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "jpeg",
+        "func": "jpeg",
+        "event": "button_submit"
+      },
+      {
+        "target": "print",
+        "func": "print",
+        "event": "button_submit"
+      },
+      {
+        "target": "PDF",
+        "func": "pdf",
+        "event": "button_submit"
+      },
+      {
+        "target": "show_sidebar",
+        "func": "resize",
+        "event": "button_submit"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "resize",
+        "event": "button_submit"
+      }
+    ],
+    "update_when_changed": ["s_appName", "s_measures", "map_yearSelector", "s_stcou", "s_statefips", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+    "selectors": {
+      "appName": {
+        "widget": "s_appName",
+        "item": "id"
+      },
+      "geography": {
+        "widget": "s_measures",
+        "item": "id"
+      },
+      "geography_selector": {
+        "widget": "s_searchtype",
+        "item": "id"
+      },
+      "geoTypeLabel": {
+        "widget": "s_searchtype",
+        "item": "label"
+      },
+      "geoYear": {
+        "widget": "map_yearSelector",
+        "item": "id"
+      },
+      "states": {
+        "widget": "s_statefips",
+        "item": "id"
+      },
+      "counties": {
+        "widget": "s_stcou",
+        "item": "id"
+      },
+      "age": {
+        "widget": "s_agecat",
+        "item": "id"
+      },
+      "race": {
+        "widget": "s_racecat",
+        "item": "id"
+      },
+      "sex": {
+        "widget": "s_sexcat",
+        "item": "id"
+      },
+      "income": {
+        "widget": "s_iprcat",
+        "item": "id"
+      },
+      "agelabel": {
+        "widget": "s_agecat",
+        "item": "label"
+      },
+      "racelabel": {
+        "widget": "s_racecat",
+        "item": "label"
+      },
+      "sexlabel": {
+        "widget": "s_sexcat",
+        "item": "label"
+      },
+      "incomelabel": {
+        "widget": "s_iprcat",
+        "item": "label"
+      }
+    },
+    "GEO_SELECTOR_OPTIONS": {
+      "ic_snc": {
+        "State": "ic_s",
+        "County": "ic_c"
+      },
+      "ui_snc": {
+        "State": "ui_s",
+        "County": "ui_c"
+      }
+    },
+    "MAP_TITLE_WIDGETS": [
+      {
+        "Widget": "geography",
+        "separator": " - ",
+        "converter": {
+          "ic_snc": "Percent Insured",
+          "ui_snc": "Percent Uninsured"
+        }
+      },
+      {
+        "Widget": "geoYear"
+      }
+    ],
+    "MAP_SUBTITLE_WIDGETS": [
+      {
+        "Widget": "agelabel",
+        "separator": " | "
+      },
+      {
+        "Widget": "racelabel",
+        "separator": " | "
+      },
+      {
+        "Widget": "sexlabel",
+        "separator": " | "
+      },
+      {
+        "Widget": "incomelabel"
+      }
+    ],
+    "outFields": {
+      "key": "s_searchtype",
+      "fields": {
+        "c": ["NAME", "ABBREV", "GEO_ID", {"appVar": "currField"},
+          {"appVar": "currField", "Model": { "regex": "pi|pu", "replacement": "pm" }}],
+        "sc": ["NAME", "STATE", "GEO_ID", {"appVar": "currField"},
+          {"appVar": "currField", "Model": {"regex": "pi|pu", "replacement": "pm"} }]
+      }
+    },
+    "infoWindow": {
+      "size": [150, 250],
+      "key": "s_searchtype",
+      "contents": {
+        "c": {
+          "title": "${NAME}, ${ABBREV}",
+          "body": "ID: ${GEO_ID} <br> Estimate: ${FIELD_0:NumberFormat(places:1)}% <br> MOE:  ${FIELD_1:NumberFormat(places:1}%",
+          "fields": [ {"appVar": "currField"}, { "appVar": "currField","Model": {"regex": "pi|pu", "replacement": "pm"} }]
+        },
+        "sc": {
+          "title": "${NAME}",
+          "body": "ID: ${GEO_ID} <br> Estimate: ${FIELD_0:NumberFormat(places:1)}% <br> MOE:  ${FIELD_1:NumberFormat(places:1}",
+          "fields": [ {"appVar": "currField"}, { "appVar": "currField","Model": {"regex": "pi|pu", "replacement": "pm"} }]
+        }
+      }
+    },
+    "rendererOptions": {
+      "key": "s_searchtype",
+      "options": {
+        "sc": {
+          "CLASSBREAKS_NUMBER": 4,
+          "FROM_COLOR": "#ffffd4",
+          "TO_COLOR": "#993404",
+          "CLASSIFICATION_METHOD": "natural-breaks",
+          "DATAFORMAT": "percent",
+          "LINESYMBOL": "STYLE_SOLID",
+          "LINECOLOR": [0, 0, 0, 1],
+          "LINEWIDTH": 0.5
+        },
+        "c": {
+          "CLASSBREAKS_NUMBER": 5,
+          "FROM_COLOR": "#ffffd4",
+          "TO_COLOR": "#993404",
+          "CLASSIFICATION_METHOD": "natural-breaks",
+          "DATAFORMAT": "percent",
+          "LINESYMBOL": "STYLE_SOLID",
+          "LINECOLOR": [0, 0, 0, 1],
+          "LINEWIDTH": 0.5
+        }
+      }
+    },
+    "numberFormats": {
+      "currency": {
+        "UNITLABEL": "$",
+        "LEGEND_NUMBER_OF_DECIMALS": 0,
+        "LEGEND_LABEL_PLACEMENT": "before"
+      },
+      "percent": {
+        "UNITLABEL": "%"
+      }
+    },
+    "data": {
+      "FIELD_CREATION_WIDGETS": [
+        {
+          "Widget": "geography",
+          "converter": {
+            "ic_snc": "pi",
+            "ui_snc": "pu"
+          },
+          "separator": "_"
+        },
+        {
+          "Widget": "age"
+        },
+        {
+          "Widget": "race"
+        },
+        {
+          "Widget": "sex"
+        },
+        {
+          "Widget": "income"
+        }
+      ],
+      "MAP_LAYER_WIDGETS": [
+        {
+          "Widget": "geography_selector",
+          "separator": "_",
+          "converter": {
+            "s": "State",
+            "c": "County",
+            "sc": "County"
+          },
+          "rendererIndex": {
+            "s": 1,
+            "c": 0,
+            "sc": 0
+          }
+        },
+        {
+          "Widget": "geoYear",
+          "substr": 2
+        }
+      ],
+      "MAP_LAYER_TO_SELECTOR_MAPPING": {
+        "County": "counties",
+        "State": "states"
+      },
+      "MAP_LAYER_PARENT_LAYER": {
+        "County": "State"
+      },
+      "INFO_WINDOW_SIZE": [
+        150, 250
+      ],
+      "DEFAULT_TRANSPARENCY": 0.8,
+      "DEFAULT_MAP_XMIN": -14325844,
+      "DEFAULT_MAP_YMIN": 2207331,
+      "DEFAULT_MAP_XMAX": -7121642,
+      "DEFAULT_MAP_YMAX": 6867214,
+      "DEFAULT_MAP_WKID": 102100,
+      "baseMap": "gray",
+      "SHOW_MAP_LOGO": false,
+      "SHOW_OVERVIEW_MAP": false,
+      "OVERVIEW_LOCATION": "top-right",
+      "LEGEND_NUMBER_OF_DECIMALS": 1,
+      "MAPSERVICE_MIN_YEAR": "2006",
+      "SELECTION_FILL_SYMBOL": {
+        "FILLSYMBOL": "STYLE_NULL",
+        "FILLCOLOR": "green",
+        "LINESYMBOL": "STYLE_SOLID",
+        "LINECOLOR": "red",
+        "LINEWIDTH": 2
+      },
+      "MAP_SERVICE_DIR": "SA_HealthInsurance_??/sahie_cedr/MapServer"
+    }
+  },
+  "grid-viz": {
+    "subscribe": [
+      { "target": "system",      "func": "makeActive","event": "layout_change"  },
+      { "target": "system",      "func": "resize",    "event": "resize" },
+      { "target": "s_measures",  "func": "create",    "event": "selection_selected" },
+      { "target": "s_year",      "func": "reload",    "event": "selection_selected" },
+      { "target": "s_statefips", "func": "reload",    "event": "selection_selected" },
+      { "target": "s_stcou",     "func": "reload",    "event": "selection_selected" },
+      { "target": "s_searchtype","func": "reload",    "event": "selection_selected" },
+      { "target": "s_agecat",    "func": "reload",    "event": "selection_selected" },
+      { "target": "s_racecat",   "func": "reload",    "event": "selection_selected" },
+      { "target": "s_sexcat",    "func": "reload",    "event": "selection_selected" },
+      { "target": "s_iprcat",    "func": "reload",    "event": "selection_selected" },
+      { "target": "show_sidebar","func": "resize",    "event": "button_submit" },
+      { "target": "hide_sidebar","func": "resize",    "event": "button_submit" },
+      { "target": "print",       "func": "print",     "event": "button_submit" },
+      { "target": "CSV",         "func": "csv",       "event": "button_submit" },
+      { "target": "PDF",         "func": "pdf",       "event": "button_submit" },
+      { "target": "ZIP",         "func": "zip",       "event": "button_submit" }
+    ],
+    "update_when_changed": ["s_measures", "s_year", "s_statefips", "s_stcou", "s_searchtype",
+      "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+    "PDFRecordLimit": 16000,
+    "PDFLimitMsg": "There is a limit of 16,000 records for PDF output. You could reduce the number of rows, or save as a CSV or ZIP file.",
+    "header": ["s_measures"],
+    "subheader": ["s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+    "subheader_separator": " | ",
+    "data_query": {
+      "include_column_ids": ["json"],
+      "secondary_sort": "year desc,name asc"
+    },
+    "gridOptions": {
+      "enableServerSideSorting": true,
+      "enableColResize": true,
+      "rowModelType": "pagination",
+      "rowSelection": "single",
+      "headerHeight": 48,
+      "rowHeight": 22,
+      "paginationPageSize": 40,
+      "height": 501
+    },
+    "gridActions": {
+      "highlight_rule": {
+        "testCol": "stcou",
+        "testRegex": "000$",
+        "classIfTrue": "highlightRow",
+        "classIfFalse": "regularRow"
+      }
+    },
+    "views_key": "s_measures",
+    "views": [
+      {
+        "id": "ui_snc",
+        "gridOptions": {
+          "columnDefs": [
+            {
+              "field": "year",
+              "headerName": "Year",
+              "width": 70
+            },
+            {
+              "field": "stcou",
+              "headerName": "FIPS",
+              "width": 80
+            },
+            {
+              "field": "name",
+              "headerName": "Name",
+              "width": 190
+            },
+            {
+              "headerName": "Demographic Group",
+              "children": [
+                {
+                  "field": "nipr",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nipr_moe",
+                  "headerName": "MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                }
+              ]
+            },
+            {
+              "headerName": "Uninsured",
+              "children": [
+                {
+                  "field": "nui",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nui_moe",
+                  "headerName": "MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctui",
+                  "headerName": "%",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctui_moe",
+                  "headerName": "%MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "ic_snc",
+        "gridOptions": {
+          "columnDefs": [
+            {
+              "field": "year",
+              "headerName": "Year",
+              "width": 70
+            },
+            {
+              "field": "stcou",
+              "headerName": "FIPS",
+              "width": 80
+            },
+            {
+              "field": "name",
+              "headerName": "Name",
+              "width": 190
+            },
+            {
+              "headerName": "Demographic Group",
+              "children": [
+                {
+                  "field": "nipr",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nipr_moe",
+                  "headerName": "MOE",
+                  "width":70,
+                  "cellClass": "align-right"
+                }
+              ]
+            },
+            {
+              "headerName": "Insured",
+              "children": [
+                {
+                  "field": "nic",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nic_moe",
+                  "headerName": "MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctic",
+                  "headerName": "%",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctic_moe",
+                  "headerName": "%MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "trends-viz": {
+    "datatype": "json",
+    "header": ["s_measures"],
+    "subheader": ["s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+    "subheader_separator": " | ",
+    "max_lines": "400",
+    "text": {
+      "default": "Sorry, you need to select no more than !M! entities; currently there are !S! selected. You can use the map or the buttons on the left to make selections."
+    },
+    "data_query": {
+      "filter_param": ["s_appName", "menu", "s_measures", "s_statefips", "s_stcou", "s_searchtype", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+      "include_column_ids": ["json"],
+      "override": [
+        {
+          "when": {
+            "against": "s_searchtype",
+            "value": ["s"]
+          },
+          "fields": {
+            "s_searchtype": "ns"
+          },
+          "set": "false"
+        },
+        {
+          "when": {
+            "against": "s_searchtype",
+            "value": ["sc"]
+          },
+          "fields": {
+            "s_searchtype": "nsc"
+          },
+          "set": "false"
+        },
+        {
+          "when": {
+            "and": [
+              {
+                "against": "s_statefips",
+                "value": []
+              },
+              {
+                "against": "s_stcou",
+                "value": []
+              },
+              {
+                "or": [
+                  {
+                    "against": "s_searchtype",
+                    "value": ["c"]
+                  },
+                  {
+                    "against": "s_searchtype",
+                    "value": ["sc"]
+                  }
+                ]
+              }
+            ]
+          },
+          "fields": {
+            "s_searchtype": "ns"
+          },
+          "set": "false"
+        }
+      ]
+    },
+    "x_values": ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014"],
+    "update_when_changed": ["s_measures", "s_statefips", "s_stcou", "s_searchtype", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "makeActive",
+        "event": "layout_change"
+      },
+      {
+        "target": "messenger",
+        "func": "resize",
+        "event": "resize"
+      },
+      {
+        "target": "menu",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_statefips",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_stcou",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_searchtype",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_agecat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_racecat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_sexcat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_iprcat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "jpeg",
+        "func": "jpeg",
+        "event": "button_submit",
+        "when": {
+          "against": "menu",
+          "value": ["trends"]
+        }
+      },
+      {
+        "target": "print",
+        "func": "print",
+        "event": "button_submit",
+        "when": {
+          "against": "menu",
+          "value": ["trends"]
+        }
+      },
+      {
+        "target": "PDF",
+        "func": "pdf",
+        "event": "button_submit",
+        "when": {
+          "against": "menu",
+          "value": ["trends"]
+        }
+      }
+    ],
+    "views_key": "s_measures",
+    "views": [
+      {
+        "id": "ui_snc",
+        "start_year": "2006",
+        "break_point": "2007",
+        "format": "percent",
+        "label": "Percent Uninsured",
+        "y_axis_label": "Percent",
+        "pointData": {
+          "y": "pctui",
+          "loCI": "pctui_lb90",
+          "hiCI": "pctui_ub90",
+          "series": "stcou",
+          "x": "year",
+          "name": "name"
+        }
+      },
+      {
+        "id": "ic_snc",
+        "start_year": "2006",
+        "break_point": "2007",
+        "format": "percent",
+        "label": "Percent Insured",
+        "y_axis_label": "Percent",
+        "pointData": {
+          "y": "pctic",
+          "loCI": "pctic_lb90",
+          "hiCI": "pctic_ub90",
+          "series": "stcou",
+          "x": "year",
+          "name": "name"
+        }
+      }
+    ]
+  }
+}
