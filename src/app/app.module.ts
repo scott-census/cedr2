@@ -20,7 +20,6 @@ import { CoreModule } from './core/core.module';
   providers: [
     { provide: APP_INITIALIZER,
       deps: [ConfigService],
-      // Angular compiler has an issue with arrow functions in useFactory, so use old syntax for immediate function
       useFactory: (configService: ConfigService) => function() { return configService.load(); },
       multi: true
     }
