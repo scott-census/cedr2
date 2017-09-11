@@ -1,10 +1,10 @@
 {
   "globals": {
-    "banner_text": "Source: U.S. Census Bureau, Small Area Income and Poverty Estimates.",
-    "app_name": "SAIPE",
-    "email_address": "sehsd.saipe@census.gov",
+    "banner_text": "Enter text crediting program",
+    "app_name": "SAHIE",
+    "email_address": "username@domain",
     "max_selected": 100,
-    "current_year": "2015"
+    "current_year": "2014"
   },
   "layout": {
     "layout_key": "menu",
@@ -23,82 +23,194 @@
       }
     },
     "subscribe": [
-      { "target": "system", "func": "set", "event": "init" },
-      { "target": "menu", "func": "change", "event": "selection_selected" }
+      {
+        "target": "system",
+        "func": "set",
+        "event": "init"
+      },
+      {
+        "target": "menu",
+        "func": "change",
+        "event": "selection_selected"
+      }
     ]
   },
   "application_content_sidebar": {
     "hidden": false,
     "subscribe": [
-      { "target": "show_sidebar", "func": "show", "event": "button_submit" },
-      { "target": "hide_sidebar", "func": "hide", "event": "button_submit" }
+      {
+        "target": "show_sidebar",
+        "func": "show",
+        "event": "button_submit"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "hide",
+        "event": "button_submit"
+      }
     ]
   },
   "instructions": {
     "content": [
       {
-        "text": "Note: Statistics for ages under 5 years are available only at the state level.",
-        "when": { "against": "s_measures", "value": ["u5_s"] }
-      },
-      {
-        "text": "Note: In some states, separate school districts for elementary and secondary schools may cover the same geographic area. Districts that encompass the full range of grades are refered to here as \"unified\".",
+        "text": "The 138% to 400% IPR category is currently available starting 2012. The gap between 2007 and 2008 represents a switch from the Current Population Survey to the American Community Survey.",
         "when": {
-          "and": [
-            { "against": "menu", "value": ["map"] },
-            { "against": "s_measures", "value": ["sa_sd"] }
-          ]
+          "against": "menu",
+          "value": ["trends-viz"]
         }
       },
       {
-        "text": "Note: You can select items on the map and then look at just those entities on the Table or Trend pages. Use the area selector tool on the toolbar and drag around the areas you wish to select.",
-        "when": { "against": "menu", "value": ["map"] }
-      },
-      {
-        "text": "Note: You can sort columns by clicking the header. Click again to sort in the other direction. The \"Map\" link in the last column will open another page with the district boundary map from American FactFinder.",
-        "when": {
-          "and": [
-            { "against": "menu", "value": ["grid"] },
-            { "against": "s_measures", "value": ["sa_sd"] }
-          ]
-        }
-      },
-      {
-        "text": "Note: You can sort columns by clicking the header. Click again to sort in the other direction.",
-        "when": { "against": "menu", "value": ["grid"] }
-      },
-      {
-        "text": "Note: Click on a name to gray out other lines, and see just that line in context. Confidence intervals are not available for school district estimates, but you can see them for states and the US by hovering over the names in the legend.",
-        "when": {
-          "and": [
-            { "against": "menu", "value": ["trends"] },
-            { "against": "s_measures", "value": ["sa_sd"] }
-          ]
-        }
-      },
-      {
-        "text": "Note: You can see the confidence interval for US, state or county estimates by hovering over the names in the legend. You can click on a name to gray out other lines, so you can see just that line in context.",
-        "when": { "against": "menu", "value": ["trends"] }
+        "text": "The 138% to 400% IPR category is currently available starting 2012."
       }
     ],
     "subscribe": [
-      { "target": "menu", "func": "set_text", "event": "selection_selected" },
-      { "target": "s_measures", "func": "set_text", "event": "selection_selected" }
+      {
+        "target": "menu",
+        "func": "set_text",
+        "event": "selection_selected"
+      }
     ]
   },
   "menu": {
     "data": [
-      { "id": "map", "label": "Map", "selected": true },
-      { "id": "grid", "label": "Table", "selected": false },
-      { "id": "trends", "label": "Trends", "selected": false }
+      {
+        "id": "map",
+        "label": "Map",
+        "selected": true
+      },
+      {
+        "id": "grid",
+        "label": "Table",
+        "selected": false
+      },
+      {
+        "id": "trends",
+        "label": "Trends",
+        "selected": false
+      }
     ]
   },
   "download": {
     "label": "Download",
     "disabled": false
   },
+  "download_options": {
+    "hidden": true,
+    "subscribe": [
+      {
+        "target": "download",
+        "func": "toggle",
+        "event": "button_submit"
+      },
+      {
+        "target": "jpeg",
+        "func": "hide",
+        "event": "button_submit"
+      },
+      {
+        "target": "CSV",
+        "func": "hide",
+        "event": "button_submit"
+      },
+      {
+        "target": "PDF",
+        "func": "hide",
+        "event": "button_submit"
+      },
+      {
+        "target": "ZIP",
+        "func": "hide",
+        "event": "button_submit"
+      }
+    ]
+  },
+  "jpeg": {
+    "label": "JPEG",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "enable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "disable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "enable",
+        "event": "map_init"
+      }
+    ]
+  },
   "print": {
     "label": "Print",
     "disabled": false
+  },
+  "CSV": {
+    "label": "CSV",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "disable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "enable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "disable",
+        "event": "map_init"
+      }
+    ]
+  },
+  "PDF": {
+    "label": "PDF",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "disable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "enable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "enable",
+        "event": "map_init"
+      }
+    ]
+  },
+  "ZIP": {
+    "label": "ZIP",
+    "disabled": false,
+    "subscribe": [
+      {
+        "target": "trends-viz",
+        "func": "disable",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "enable",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "disable",
+        "event": "map_init"
+      }
+    ]
   },
   "Share": {
     "label": "Share"
@@ -109,73 +221,64 @@
   "Help": {
     "label": "Help"
   },
-  "download_options": {
-    "hidden": true,
-    "subscribe": [
-      { "target": "download", "func": "toggle", "event": "button_submit" },
-      { "target": "jpeg", "func": "hide", "event": "button_submit" },
-      { "target": "CSV", "func": "hide", "event": "button_submit" },
-      { "target": "PDF", "func": "hide", "event": "button_submit" },
-      { "target": "ZIP", "func": "hide", "event": "button_submit" }
-    ]
-  },
-  "jpeg": {
-    "label": "JPEG",
-    "disabled": false,
-    "subscribe": [
-      { "target": "trends-viz", "func": "enable", "event": "trends_init" },
-      { "target": "grid-viz", "func": "disable", "event": "grid_init" },
-      { "target": "map-viz", "func": "enable", "event": "map_init" }
-    ]
-  },
-  "CSV": {
-    "label": "CSV",
-    "disabled": false,
-    "subscribe": [
-      { "target": "trends-viz", "func": "disable", "event": "trends_init" },
-      { "target": "grid-viz", "func": "enable", "event": "grid_init" },
-      { "target": "map-viz", "func": "disable", "event": "map_init" }
-    ]
-  },
-  "PDF": {
-    "label": "PDF",
-    "disabled": false,
-    "subscribe": [
-      { "target": "trends-viz", "func": "disable", "event": "trends_init" },
-      { "target": "grid-viz", "func": "enable", "event": "grid_init" },
-      { "target": "map-viz", "func": "enable", "event": "map_init" }
-    ]
-  },
-  "ZIP": {
-    "label": "ZIP",
-    "disabled": false,
-    "subscribe": [
-      { "target": "trends-viz", "func": "disable", "event": "trends_init" },
-      { "target": "grid-viz", "func": "enable", "event": "grid_init" },
-      { "target": "map-viz", "func": "disable", "event": "map_init" }
-    ]
-  },
   "show_sidebar": {
     "label": "Show Menu",
+    "hidden": true,
     "subscribe": [
-      { "target": "system", "func": "hide", "event": "init" },
-      { "target": "hide_sidebar", "func": "show", "event": "button_submit" },
-      { "target": "show_sidebar", "func": "hide", "event": "button_submit" }
+      {
+        "target": "system",
+        "func": "hide",
+        "event": "init"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "show",
+        "event": "button_submit"
+      },
+      {
+        "target": "show_sidebar",
+        "func": "hide",
+        "event": "button_submit"
+      }
     ]
   },
   "hide_sidebar": {
     "label": "Hide Menu",
     "subscribe": [
-      { "target": "show_sidebar", "func": "show", "event": "button_submit" },
-      { "target": "hide_sidebar", "func": "hide", "event": "button_submit" }
+      {
+        "target": "show_sidebar",
+        "func": "show",
+        "event": "button_submit"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "hide",
+        "event": "button_submit"
+      }
     ]
   },
   "utilities": {
     "subscribe": [
-      { "target": "Share", "func": "share", "event": "button_submit" },
-      { "target": "Feedback", "func": "feedback", "event": "button_submit" },
-      { "target": "Help", "func": "help", "event": "button_submit" },
-      { "target": "ResetButton", "func": "reset", "event": "button_submit" }
+      {
+        "target": "Share",
+        "func": "share",
+        "event": "button_submit"
+      },
+      {
+        "target": "Feedback",
+        "func": "feedback",
+        "event": "button_submit"
+      },
+      {
+        "target": "Help",
+        "func": "help",
+        "event": "button_submit"
+      },
+      {
+        "target": "ResetButton",
+        "func": "reset",
+        "event": "button_submit"
+      }
     ],
     "share": {
       "url": "http://api.addthis.com/oexchange/0.8/offer?url=http://www.census.gov/did/www/saipe/data/",
@@ -190,15 +293,24 @@
       "url": [
         {
           "url": "resources/templates/map-help.htm",
-          "when": { "against": "menu", "value": ["map"] }
+          "when": {
+            "against": "menu",
+            "value": ["map"]
+          }
         },
         {
           "url": "resources/templates/trends-help.htm",
-          "when": { "against": "menu", "value": ["trends"] }
+          "when": {
+            "against": "menu",
+            "value": ["trends"]
+          }
         },
         {
           "url": "resources/templates/table-help.htm",
-          "when": { "against": "menu", "value": ["grid"] }
+          "when": {
+            "against": "menu",
+            "value": ["grid"]
+          }
         },
         {
           "url": "resources/templates/help.txt"
@@ -210,36 +322,49 @@
     }
   },
   "s_measures": {
-    "label": "Poverty Rates or Income:",
+    "label": "Percent Insured or Uninsured:",
     "data": [
-      { "id": "aa_snc", "label": "All Ages (state/county)", "selected": true },
-      { "id": "u18_snc", "label": "Under Age 18 (state/county)", "selected": false },
-      { "id": "5_17_fam_snc", "label": "Ages 5 to 17 in Families (state/county)", "selected": false },
-      { "id": "sa_sd", "label": "Ages 5 to 17 in Families (school district)", "selected": false },
-      { "id": "u5_s", "label": "Under Age 5 (state)", "selected": false },
-      { "id": "mhi_snc", "label": "Median Household Income (state/county)", "selected": false }
+      {
+        "id": "ui_snc",
+        "label": "Uninsured",
+        "selected": true
+      },
+      {
+        "id": "ic_snc",
+        "label": "Insured",
+        "selected": false
+      }
     ]
   },
-  "states_button": {
+  "statefips_button": {
     "label": "States",
     "base_label": " States: ",
     "subscribe": [
-      { "target": "s_state", "func": "set_label", "event": "selected_names_updated" }
+      {
+        "target": "s_statefips",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      }
     ]
   },
-  "s_state": {
-    "size": "medium",
+  "s_statefips": {
+    "size":"medium",
     "default_value": "none",
     "options": {
-      "height": 440,
+      "height": 400,
       "filterToolbar": true,
       "filterToolbarOptions": {
         "searchOnEnter": false
       }
     },
     "data_query": {
-      "lookupID": "state",
-      "filter_param": ["s_appName", "menu", "s_measures", "s_state"]
+      "lookupID": "statefips",
+      "filter_param": ["s_appName", "menu", "s_measures", "s_statefips", "s_searchtype", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+      "override": {
+        "fields": {
+          "s_searchtype": "s"
+        }
+      }
     },
     "text": {
       "default": "Selected: !S! of !T! total"
@@ -251,72 +376,142 @@
           "field": "label",
           "headerName": "State Name",
           "checkboxSelection": true,
-          "filter": "text",
           "width": 200
         },
         {
-          "field": "stabbrev",
+          "field": "stabrev",
           "headerName": "ST",
-          "filter": "text",
           "width": 80
         },
-        { "field": "id", "hide": true },
-        { "field": "selected", "hide": true }
+        {
+          "field": "id",
+          "headerName": "FIPS",
+          "hide": true
+        },
+        {
+          "field": "selected",
+          "hide": true
+        }
       ],
       "multiselect": true,
       "toolbar": [ true, "bottom" ]
     },
     "subscribe": [
-      { "target": "system", "func": "initialize", "event": "init" },
-      { "target": "states_button", "func": "open", "event": "button_submit" },
-      { "target": "s_county", "func": "addToSelection", "event": "add_states" },
-      { "target": "s_district", "func": "addToSelection", "event": "add_states" },
-      { "target": "map-viz", "func": "update_selected", "event": "map_s_state_selection_selected" }
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      },
+      {
+        "target": "statefips_button",
+        "func": "open",
+        "event": "button_submit"
+      },
+      {
+        "target": "s_stcou",
+        "func": "addToSelection",
+        "event": "add_states"
+      },
+      {
+        "target": "map-viz",
+        "func": "update_selected",
+        "event": "map_s_statefips_selection_selected"
+      }
     ],
-    "update_when_changed": ["s_state", "s_measures"]
+    "update_when_changed": ["s_statefips", "s_measures"]
   },
-  "counties_button": {
+  "stcou_button": {
     "label": "Counties",
     "base_label": " Counties: ",
     "subscribe": [
-      { "target": "s_measures", "func": "hide", "event": "selection_selected",
-        "when": { "against": "s_measures", "value": ["sa_sd"] }
+      {
+        "target": "system",
+        "func": "disable",
+        "event": "init",
+        "when": {
+          "not": {
+            "against": "s_racecat",
+            "value": ["0"]
+          }
+        }
       },
-      { "target": "system", "func": "hide", "event": "init",
-        "when": { "against": "s_measures", "value": ["sa_sd"] }
+      {
+        "target": "system",
+        "func": "enable",
+        "event": "init",
+        "when": {
+          "against": "s_racecat",
+          "value": ["0"]
+        }
       },
-      { "target": "s_measures", "func": "show", "event": "selection_selected",
-        "when": { "not": { "against": "s_measures", "value": ["sa_sd"] } }
+      {
+        "target": "s_racecat",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "not": {
+            "against": "s_racecat",
+            "value": ["0"]
+          }
+        }
       },
-      { "target": "system", "func": "show", "event": "init",
-        "when": { "not": { "against": "s_measures", "value": ["sa_sd"] } }
+      {
+        "target": "s_racecat",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "against": "s_racecat",
+          "value": ["0"]
+        }
       },
-      { "target": "s_county", "func": "set_label", "event": "selected_names_updated" }
+      {
+        "target": "s_stcou",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      }
     ]
   },
-  "s_county": {
+  "s_stcou": {
     "size": "medium",
     "default_value": "none",
-    "text": {
-      "over_max": "MAXIMUM ",
-      "default": "!M!Selected: !S! of !T! total"
-    },
     "options": {
+      "height": 400,
       "filterToolbar": true,
       "filterToolbarOptions": {
-        "searchOnEnter": false,
-        "defaultSearch": "cn"
+        "searchOnEnter": false
       }
     },
     "data_query": {
-      "lookupID": "county",
-      "filter_param": ["s_appName", "menu", "s_measures", "s_state", "s_county"]
+      "lookupID": "stcou",
+      "filter_param": ["s_appName", "menu", "s_measures", "s_year", "map_yearSelector", "s_statefips", "s_stcou", "s_searchtype"],
+      "override": [
+        {
+          "fields": {
+            "s_searchtype": "c"
+          },
+          "set": "false"
+        },
+        {
+          "when": {
+            "against": "menu",
+            "value": ["map-viz"]
+          },
+          "substitute": {
+            "s_year": "noop",
+            "map_yearSelector": "s_year"
+          }
+        }
+      ]
     },
     "secondary_select": {
       "field": "id",
       "regex": "^[0-9][0-9]",
       "message": "add_states",
       "flatten": true
+    },
+    "text": {
+      "over_max": "MAXIMUM ",
+      "default": "Selected: !S! of !T! total"
     },
     "config": {
       "enableFilter": true,
@@ -326,90 +521,64 @@
           "headerName": "County Name",
           "checkboxSelection": true,
           "filter": "text",
-          "width": 250
+          "width": 300
         },
         {
-          "field": "stabbrev",
-          "headerName": "State",
-          "filter": "text",
-          "width": 80
+          "field": "id",
+          "headerName": "FIPS",
+          "hide": true
         },
-        { "field": "id", "hide": true },
-        { "field": "selected", "hide": true }
+        {
+          "field": "selected",
+          "hide": true
+        }
       ],
       "multiselect": true,
-      "rowNum": 100,
-      "scroll": 1,
       "toolbar": [ true, "bottom" ]
     },
     "subscribe": [
-      { "target": "system", "func": "initialize", "event": "init" },
-      { "target": "counties_button", "func": "open", "event": "button_submit" },
-      { "target": "map-viz", "func": "update_selected", "event": "map_s_county_selection_selected" }
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      },
+      {
+        "target": "stcou_button",
+        "func": "open",
+        "event": "button_submit"
+      },
+      {
+        "target": "map-viz",
+        "func": "update_selected",
+        "event": "map_s_stcou_selection_selected"
+      }
     ],
-    "update_when_changed": ["s_state", "s_county"]
-  },
-  "districts_button": {
-    "label": "School Districts",
-    "base_label": " School Districts: ",
-    "subscribe": [
-      { "target": "s_measures", "func": "show", "event": "selection_selected",
-        "when": { "against": "s_measures", "value": ["sa_sd"] }
-      },
-      { "target": "system", "func": "show", "event": "init",
-        "when": { "against": "s_measures", "value": ["sa_sd"] }
-      },
-      { "target": "s_measures", "func": "hide", "event": "selection_selected",
-        "when": { "not": { "against": "s_measures", "value": ["sa_sd"] } }
-      },
-      { "target": "system", "func": "hide", "event": "init",
-        "when": { "not": { "against": "s_measures", "value": ["sa_sd"] } }
-      },
-      { "target": "s_district", "func": "set_label", "event": "selected_names_updated" }
-    ]
-  },
-  "s_district": {
-    "size": "medium",
-    "default_value": "none",
-    "text": {
-      "over_max": "MAXIMUM ",
-      "default": "!M!Selected: !S! of !T! total"
-    },
-    "data_query": {
-      "lookupID": "district",
-      "filter_param": ["s_appName", "menu", "s_measures", "s_state", "s_district"]
-    },
-    "secondary_select": {
-      "field": "id",
-      "regex": "^[0-9][0-9]",
-      "message": "add_states",
-      "flatten": true
-    },
-    "config": {
-      "enableFilter": true,
-      "multiselect": true,
-      "columnDefs": [
-        { "field": "label", "headerName": "School District Name", "checkboxSelection": true, "filter": "text", "width": 327 },
-        { "field": "stabbrev", "headerName": "ST", "filter": "text", "width": 80 },
-        { "field": "id", "hide": true },
-        { "field": "selected", "hide": true }
-      ]
-    },
-    "subscribe": [
-      { "target": "system", "func": "initialize", "event": "init" },
-      { "target": "districts_button", "func": "open", "event": "button_submit" },
-      { "target": "map-viz", "func": "update_selected", "event": "map_s_district_selection_selected" }
-    ],
-    "update_when_changed": ["s_state", "s_district"]
+    "update_when_changed": ["s_statefips", "s_year"]
   },
   "years_button": {
     "label": "Years",
     "base_label": " Years: ",
     "subscribe": [
-      { "target": "s_year", "func": "set_label", "event": "selected_names_updated" },
-      { "target": "trends-viz", "func": "hide", "event": "trends_init" },
-      { "target": "grid-viz", "func": "show", "event": "grid_init" },
-      { "target": "map-viz", "func": "hide", "event": "map_init" }
+      {
+        "target": "s_year",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      },
+      {
+        "target": "trends-viz",
+        "func": "hide",
+        "event": "trends_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "hide",
+        "event": "map_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "show",
+        "event": "grid_init"
+      }
     ]
   },
   "s_year": {
@@ -418,74 +587,53 @@
     "data_query": {
       "lookupID": "year",
       "sortname": "id",
-      "sortorder": "desc",
-      "filter_param": ["s_appName", "menu", "s_measures", "s_state"]
+      "sortorder": "desc"
     },
     "options": {
-      "showDisabled": true
+      "showDisabled": true,
+      "instructions": "Some years are unavailable if certain income or age groups are selected."
     },
     "subscribe": [
-      { "target": "system", "func": "initialize", "event": "init" },
-      { "target": "years_button", "func": "open", "event": "button_submit" }
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      },
+      {
+        "target": "years_button",
+        "func": "open",
+        "event": "button_submit"
+      }
     ],
     "config": {
       "columnDefs": [
-        { "field": "label", "headerName": "Year", "checkboxSelection": true, "sort": { "direction": "desc" }, "width": 150 },
-        { "field": "id", "hide": true },
-        { "field": "disabled", "hide": true },
-        { "field": "selected", "hide": true }
+        {
+          "field": "label",
+          "headerName": "Year",
+          "checkboxSelection": true,
+          "sort": {
+            "direction": "desc"
+          },
+          "width": 150
+        },
+        {
+          "field": "id",
+          "visible": false
+        },
+        {
+          "field": "disabled",
+          "hide": true
+        },
+        {
+          "field": "selected",
+          "hide": true
+        }
       ],
-      "multiselect": true
+      "multiselect": true,
+      "height": 206,
+      "toolbar": [ true, "bottom" ]
     },
-    "update_when_changed": ["s_measures"]
-  },
-  "map_geoSelector": {
-    "label": "Geography",
-    "base_label": " Geography: ",
-    "has_own_data": true,
-    "selection_required": true,
-    "options": {
-      "showDisabled": false
-    },
-    "data": [
-      { "id": "aa_snc", "label": "County", "disabled": "true" },
-      { "id": "aa_c", "label": "County", "selected": "true", "disabled": "false" },
-      { "id": "aa_s", "label": "State", "disabled": "false" },
-      { "id": "u18_snc", "label": "County", "disabled": "true" },
-      { "id": "u18_c", "label": "County", "disabled": "true" },
-      { "id": "u18_s", "label": "State", "disabled": "true" },
-      { "id": "5_17_fam_snc", "label": "County", "disabled": "true" },
-      { "id": "5_17_fam_c", "label": "County", "disabled": "true" },
-      { "id": "5_17_fam_s", "label": "State", "disabled": "true" },
-      { "id": "mhi_snc", "label": "County", "disabled": "true" },
-      { "id": "mhi_c", "label": "County", "disabled": "true" },
-      { "id": "mhi_s", "label": "State", "disabled": "true" },
-      { "id": "u5_s", "label": "State", "disabled": "true" },
-      { "id": "sa_sd", "label": "Unified and Elementary School District", "disabled": "true" },
-      { "id": "sa_eusd", "label": "Unified and Elementary School District", "disabled": "true" },
-      { "id": "sa_susd", "label": "Unified and Secondary School District", "disabled": "true" }
-    ],
-    "subscribe": [
-      { "target": "system", "func": "hide", "event": "init",
-        "when": { "not": { "against": "menu", "value": ["map"] } }
-      },
-      { "target": "system", "func": "show", "event": "init",
-        "when": { "against": "menu", "value": ["map"] }
-      },
-      { "target": "system", "func": "initialize", "event": "init" },
-      { "target": "map-viz", "func": "set_valid_elements", "event": "set_geo_selector_options" },
-      { "target": "map-viz", "func": "update_selected", "event": "select_geo_selector_option" },
-      { "target": "trends-viz", "func": "hide", "event": "trends_init" },
-      { "target": "grid-viz", "func": "hide", "event": "grid_init" },
-      { "target": "map-viz", "func": "show", "event": "map_init" },
-      { "target": "s_measures", "func": "disable", "event": "selection_selected",
-        "when": { "against": "s_measures", "value": ["u5_s"] }
-      },
-      { "target": "s_measures", "func": "enable", "event": "selection_selected",
-        "when": { "not": { "against": "s_measures", "value": ["u5_s"] } }
-      }
-    ],
-    "update_when_changed": ["s_measures"]
+    "update_when_changed": ["s_iprcat", "s_agecat"]
   },
   "map_yearSelector": {
     "label": "Year",
@@ -493,148 +641,677 @@
     "has_own_data": true,
     "default_value": "first",
     "data": [
-      { "id": "2015", "label": "2015" },
-      { "id": "2014", "label": "2014" },
-      { "id": "2013", "label": "2013" },
-      { "id": "2012", "label": "2012" },
-      { "id": "2011", "label": "2011" },
-      { "id": "2010", "label": "2010" },
-      { "id": "2009", "label": "2009" },
-      { "id": "2008", "label": "2008" }
+      {
+        "id": "2014",
+        "label": "2014"
+      },
+      {
+        "id": "2013",
+        "label": "2013"
+      },
+      {
+        "id": "2012",
+        "label": "2012"
+      },
+      {
+        "id": "2011",
+        "label": "2011"
+      },
+      {
+        "id": "2010",
+        "label": "2010"
+      },
+      {
+        "id": "2009",
+        "label": "2009"
+      },
+      {
+        "id": "2008",
+        "label": "2008"
+      }
     ],
     "subscribe": [
-      { "target": "system", "func": "hide", "event": "init",
-        "when": { "not": { "against": "menu", "value": ["map"] } }
+      {
+        "target": "system",
+        "func": "hide",
+        "event": "init",
+        "when": {
+          "not": {
+            "against": "menu",
+            "value": ["map"]
+          }
+        }
       },
-      { "target": "system", "func": "show", "event": "init",
-        "when": { "against": "menu", "value": ["map"] }
+      {
+        "target": "system",
+        "func": "show",
+        "event": "init",
+        "when": {
+          "against": "menu",
+          "value": ["map"]
+        }
       },
-      { "target": "trends-viz", "func": "hide", "event": "trends_init" },
-      { "target": "grid-viz", "func": "hide", "event": "grid_init" },
-      { "target": "map-viz", "func": "show", "event": "map_init" },
-      { "target": "system", "func": "initialize", "event": "init" },
-      { "target": "map-viz", "func": "set_valid_elements", "event": "set_year_selector_options" },
-      { "target": "map-viz", "func": "update_selected", "event": "select_year_selector_option" }
+      {
+        "target": "trends-viz",
+        "func": "hide",
+        "event": "trends_init"
+      },
+      {
+        "target": "grid-viz",
+        "func": "hide",
+        "event": "grid_init"
+      },
+      {
+        "target": "map-viz",
+        "func": "show",
+        "event": "map_init"
+      },
+      {
+        "target": "map_yearSelector",
+        "func": "set_label",
+        "event": "selected_names_updated"
+      }
     ]
   },
-  "s_USStOnly": {
-    "label": "State Data Only",
+  "s_agecat": {
+    "base_label": " Age Group: ",
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Under 19 years not available for race or sex subgroups; 50 to 64 not available for counties prior to 2010."
+    },
+    "update_when_changed": ["s_racecat", "s_sexcat", "s_year", "s_searchtype", "map_yearSelector"],
     "data": [
-      { "id": "y", "label": "y", "selected": false },
-      { "id": "n", "label": "n", "selected": true }
+      {
+        "id": "0",
+        "label": "Under 65 years",
+        "selected": true
+      },
+      {
+        "id": "1",
+        "label": "18 to 64 years",
+        "selected": false
+      },
+      {
+        "id": "2",
+        "label": "40 to 64 years",
+        "selected": false
+      },
+      {
+        "id": "3",
+        "label": "50 to 64 years",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "map_yearSelector": ["2006", "2007", "2008", "2009"],
+            "menu": ["map"],
+            "s_searchtype": ["c", "sc"]
+          }
+        }
+      },
+      {
+        "id": "4",
+        "label": "Under 19 years",
+        "selected": false,
+        "disableWhen": {
+          "s_racecat": ["1", "2", "3"],
+          "s_sexcat": ["1", "2"]
+        }
+      }
     ],
     "subscribe": [
-      { "target": "trends-viz", "func": "show", "event": "trends_init" },
-      { "target": "grid-viz", "func": "show", "event": "grid_init",
-        "when": { "not": { "against": "s_measures", "value": ["sa_sd"] } }
-      },
-      { "target": "grid-viz", "func": "hide", "event": "grid_init",
-        "when": { "against": "s_measures", "value": ["sa_sd"] }
-      },
-      { "target": "grid-viz", "func": "enable", "event": "grid_init" },
-      { "target": "s_state", "func": "enable", "event": "selection_selected",
-        "when": { "not": { "against": "s_state", "value": [] } }
-      },
-      { "target": "s_county", "func": "enable", "event": "selection_selected",
-        "when": { "not": { "against": "s_county", "value": [] } }
-      },
-      { "target": "s_district", "func": "enable", "event": "selection_selected",
-        "when": { "not": { "against": "s_district", "value": [] } }
-      },
-      { "target": "s_measures", "func": "show", "event": "selection_selected",
-        "when": {
-          "and": [
-            { "against": "menu", "value": ["grid"] },
-            { "not": { "against": "s_measures", "value": ["sa_sd"] } }
-          ]
-        }
-      },
-      { "target": "s_measures", "func": "hide", "event": "selection_selected",
-        "when": {
-          "and": [
-            { "against": "menu", "value": ["grid"] },
-            { "against": "s_measures", "value": ["sa_sd"] }
-          ]
-        }
-      },
-      { "target": "map-viz", "func": "hide", "event": "map_init" },
-      { "target": "s_USStOnly", "func": "check", "event": "do_update" },
-      { "target": "s_USStOnly", "func": "disable", "event": "do_update" }
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
     ]
   },
-  "s_inclUsTot": {
-    "label": "Include US Total",
+  "s_racecat": {
+    "base_label": " Race: ",
+    "update_when_changed": ["s_searchtype", "s_agecat"],
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Race subgroups are not available for the Under 19 age group or Counties."
+    },
     "data": [
-      { "id": "y", "label": "y", "selected": true },
-      { "id": "n", "label": "n", "selected": false }
+      {
+        "id": "0",
+        "label": "All Races",
+        "selected": true
+      },
+      {
+        "id": "1",
+        "label": "White alone, Not Hispanic",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"],
+          "s_searchtype": ["c", "sc"]
+        }
+      },
+      {
+        "id": "2",
+        "label": "Black alone, Not Hispanic",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"],
+          "s_searchtype": ["c", "sc"]
+        }
+      },
+      {
+        "id": "3",
+        "label": "Hispanic (any race)",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"],
+          "s_searchtype": ["c", "sc"]
+        }
+      }
     ],
     "subscribe": [
-      { "target": "trends-viz", "func": "show", "event": "trends_init" },
-      { "target": "grid-viz", "func": "show", "event": "grid_init",
-        "when": { "not": { "against": "s_measures", "value": ["sa_sd"] } }
-      },
-      { "target": "grid-viz", "func": "hide", "event": "grid_init",
-        "when": { "against": "s_measures", "value": ["sa_sd"] }
-      },
-      { "target": "s_measures", "func": "show", "event": "selection_selected",
-        "when": {
-          "and": [
-            { "against": "menu", "value": ["grid"] },
-            { "not": { "against": "s_measures", "value": ["sa_sd"] } }
-          ]
-        }
-      },
-      { "target": "s_measures", "func": "hide", "event": "selection_selected",
-        "when": {
-          "and": [
-            { "against": "menu", "value": ["grid"] },
-            { "against": "s_measures", "value": ["sa_sd"] }
-          ]
-        }
-      },
-      { "target": "map-viz", "func": "hide", "event": "map_init" }
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
     ]
   },
-  "s_inclStTot": {
-    "label": "Include State Total",
+  "s_sexcat": {
+    "base_label": " Sex: ",
+    "update_when_changed": ["s_agecat"],
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Sex subgroups are not available for the Under 19 age group."
+    },
     "data": [
-      { "id": "y", "label": "y", "selected": true },
-      { "id": "n", "label": "n", "selected": false }
+      {
+        "id": "0",
+        "label": "Both Sexes",
+        "selected": true
+      },
+      {
+        "id": "1",
+        "label": "Male Only",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"]
+        }
+      },
+      {
+        "id": "2",
+        "label": "Female Only",
+        "selected": false,
+        "disableWhen": {
+          "s_agecat": ["4"]
+        }
+      }
     ],
     "subscribe": [
-      { "target": "trends-viz", "func": "show", "event": "trends_init" },
-      { "target": "grid-viz", "func": "show", "event": "grid_init",
-        "when": { "not": { "against": "s_measures", "value": ["sa_sd"] } }
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
+    ]
+  },
+  "s_iprcat": {
+    "base_label": " Income: ",
+    "update_when_changed": ["s_year"],
+    "has_own_data": true,
+    "selection_required": true,
+    "options": {
+      "noScroll": true,
+      "noHeader": true,
+      "showDisabled": true,
+      "instructions": "Some income groups are not available for all years."
+    },
+    "data": [
+      {
+        "id": "0",
+        "label": "All Incomes",
+        "selected": true
       },
-      { "target": "grid-viz", "func": "hide", "event": "grid_init",
-        "when": { "against": "s_measures", "value": ["sa_sd"] }
+      {
+        "id": "1",
+        "label": "<= 200% of Poverty",
+        "selected": false
       },
-      { "target": "s_measures", "func": "show", "event": "selection_selected",
+      {
+        "id": "2",
+        "label": "<= 250% of Poverty",
+        "selected": false
+      },
+      {
+        "id": "3",
+        "label": "<= 138% of Poverty",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "s_year": ["2006", "2007"],
+            "menu": ["grid", "trends"]
+          },
+          "and1": {
+            "map_yearSelector": ["2006", "2007"],
+            "menu": ["map"]
+          }
+        }
+      },
+      {
+        "id": "4",
+        "label": "<= 400% of Poverty",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "s_year": ["2006", "2007"],
+            "menu": ["grid", "trends"]
+          },
+          "and1": {
+            "map_yearSelector": ["2006", "2007"],
+            "menu": ["map"]
+          }
+        }
+      },
+      {
+        "id": "5",
+        "label": "138% to 400% of Poverty",
+        "selected": false,
+        "disableWhen": {
+          "and": {
+            "s_year": ["2006", "2007", "2008", "2009", "2010", "2011"],
+            "menu": ["grid", "trends"]
+          },
+          "and1": {
+            "map_yearSelector": ["2006", "2007", "2008", "2009", "2010", "2011"],
+            "menu": ["map"]
+          }
+        }
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "initialize",
+        "event": "init"
+      }
+    ]
+  },
+  "s_searchtype": {
+    "label": "Show State Data Only",
+    "data": [
+      {
+        "id": "s",
+        "label": "State",
+        "selected": false
+      },
+      {
+        "id": "sc",
+        "label": "County",
+        "selected": true
+      }
+    ],
+    "subscribe": [
+      {
+        "target": "system",
+        "func": "disable",
+        "event": "init",
         "when": {
-          "and": [
-            { "against": "menu", "value": ["grid"] },
-            { "not": { "against": "s_measures", "value": ["sa_sd"] } }
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
           ]
         }
       },
-      { "target": "s_measures", "func": "hide", "event": "selection_selected",
+      {
+        "target": "s_racecat",
+        "func": "disable",
+        "event": "selection_selected",
         "when": {
-          "and": [
-            { "against": "menu", "value": ["grid"] },
-            { "against": "s_measures", "value": ["sa_sd"] }
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
           ]
         }
       },
-      { "target": "s_USStOnly", "func": "check", "event": "selection_selected",
-        "when": { "against": "s_USStOnly", "value": ["y"] }
+      {
+        "target": "s_agecat",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map-viz"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
       },
-      { "target": "s_USStOnly", "func": "disable", "event": "selection_selected",
-        "when": { "against": "s_USStOnly", "value": ["y"] }
+      {
+        "target": "map_yearSelector",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
       },
-      { "target": "s_USStOnly", "func": "enable", "event": "selection_selected",
-        "when": { "against": "s_USStOnly", "value": ["n"] }
+      {
+        "target": "menu",
+        "func": "check",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "menu",
+              "value": ["map"]
+            },
+            {
+              "against": "s_agecat",
+              "value": ["3"]
+            },
+            {
+              "against": "map_yearSelector",
+              "in": ["2006", "2007", "2008", "2009"]
+            }
+          ]
+        }
       },
-      { "target": "map-viz", "func": "hide", "event": "map_init" }
+      {
+        "target": "menu",
+        "func": "disable",
+        "event": "selection_selected",
+        "when": {
+          "or": [
+            {
+              "not": {
+                "against": "s_racecat",
+                "value": ["0"]
+              }
+            },
+            {
+              "and": [
+                {
+                  "against": "menu",
+                  "value": ["map"]
+                },
+                {
+                  "against": "s_agecat",
+                  "value": ["3"]
+                },
+                {
+                  "against": "map_yearSelector",
+                  "in": ["2006", "2007", "2008", "2009"]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "system",
+        "func": "enable",
+        "event": "init",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "s_racecat",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "s_agecat",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "menu",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "target": "map_yearSelector",
+        "func": "enable",
+        "event": "selection_selected",
+        "when": {
+          "and": [
+            {
+              "against": "s_racecat",
+              "value": ["0"]
+            },
+            {
+              "or": [
+                {
+                  "not": {
+                    "against": "menu",
+                    "value": ["map"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "s_agecat",
+                    "value": ["3"]
+                  }
+                },
+                {
+                  "not": {
+                    "against": "map_yearSelector",
+                    "in": ["2006", "2007", "2008", "2009"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
     ]
   },
   "ResetButton": {
@@ -642,164 +1319,225 @@
   },
   "map-viz": {
     "subscribe": [
-      { "target": "system", "func": "makeActive", "event": "layout_change" },
-      { "target": "system", "func": "resize", "event": "resize" },
-      { "target": "map-viz", "func": "rangeSelectorFilter", "event": "range_selected" },
-      { "target": "s_measures", "func": "updateMapContent", "event": "selection_selected" },
-      { "target": "map_geoSelector", "func": "geoSelectorChange", "event": "selection_selected" },
-      { "target": "map_yearSelector", "func": "yearSelectorChange", "event": "selection_selected" },
-      { "target": "s_state", "func": "zoomToSelections", "event": "selection_selected" },
-      { "target": "s_county", "func": "zoomToSelections", "event": "selection_selected" },
-      { "target": "s_district", "func": "zoomToSelections", "event": "selection_selected" },
-      { "target": "jpeg", "func": "jpeg", "event": "button_submit" },
-      { "target": "print", "func": "print", "event": "button_submit" },
-      { "target": "PDF", "func": "pdf", "event": "button_submit" },
-      { "target": "show_sidebar", "func": "resize", "event": "button_submit" },
-      { "target": "hide_sidebar", "func": "resize", "event": "button_submit" }
+      {
+        "target": "system",
+        "func": "makeActive",
+        "event": "layout_change"
+      },
+      {
+        "target": "system",
+        "func": "resize",
+        "event": "resize"
+      },
+      {
+        "target": "map-viz",
+        "func": "rangeSelectorFilter",
+        "event": "range_selected"
+      },
+      {
+        "target": "s_searchtype",
+        "func": "geoSelectorChange",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_measures",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "map_yearSelector",
+        "func": "yearSelectorChange",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_statefips",
+        "func": "zoomToSelections",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_stcou",
+        "func": "zoomToSelections",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_agecat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_racecat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_sexcat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_iprcat",
+        "func": "updateMapContent",
+        "event": "selection_selected"
+      },
+      {
+        "target": "jpeg",
+        "func": "jpeg",
+        "event": "button_submit"
+      },
+      {
+        "target": "print",
+        "func": "print",
+        "event": "button_submit"
+      },
+      {
+        "target": "PDF",
+        "func": "pdf",
+        "event": "button_submit"
+      },
+      {
+        "target": "show_sidebar",
+        "func": "resize",
+        "event": "button_submit"
+      },
+      {
+        "target": "hide_sidebar",
+        "func": "resize",
+        "event": "button_submit"
+      }
     ],
+    "update_when_changed": ["s_appName", "s_measures", "map_yearSelector", "s_stcou", "s_statefips", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
     "selectors": {
-      "appName": { "widget": "s_appName", "item": "id" },
-      "geography": { "widget": "s_measures", "item": "id" },
-      "geography_selector": { "widget": "map_geoSelector", "item": "id" },
-      "geoTypeLabel": { "widget": "map_geoSelector", "item": "label" },
-      "years": { "widget": "s_year", "item": "id" },
-      "geoYear": { "widget": "map_yearSelector", "item": "id" },
-      "states": { "widget": "s_state", "item": "id" },
-      "counties": { "widget": "s_county", "item": "id" },
-      "districts": { "widget": "s_district", "item": "id" }
+      "appName": {
+        "widget": "s_appName",
+        "item": "id"
+      },
+      "geography": {
+        "widget": "s_measures",
+        "item": "id"
+      },
+      "geography_selector": {
+        "widget": "s_searchtype",
+        "item": "id"
+      },
+      "geoTypeLabel": {
+        "widget": "s_searchtype",
+        "item": "label"
+      },
+      "geoYear": {
+        "widget": "map_yearSelector",
+        "item": "id"
+      },
+      "states": {
+        "widget": "s_statefips",
+        "item": "id"
+      },
+      "counties": {
+        "widget": "s_stcou",
+        "item": "id"
+      },
+      "age": {
+        "widget": "s_agecat",
+        "item": "id"
+      },
+      "race": {
+        "widget": "s_racecat",
+        "item": "id"
+      },
+      "sex": {
+        "widget": "s_sexcat",
+        "item": "id"
+      },
+      "income": {
+        "widget": "s_iprcat",
+        "item": "id"
+      },
+      "agelabel": {
+        "widget": "s_agecat",
+        "item": "label"
+      },
+      "racelabel": {
+        "widget": "s_racecat",
+        "item": "label"
+      },
+      "sexlabel": {
+        "widget": "s_sexcat",
+        "item": "label"
+      },
+      "incomelabel": {
+        "widget": "s_iprcat",
+        "item": "label"
+      }
     },
-    "update_when_changed": ["s_measures", "s_year", "s_state", "s_county", "s_district", "map_geoSelector" ],
     "GEO_SELECTOR_OPTIONS": {
-      "aa_snc": { "County": "aa_c", "State": "aa_s" },
-      "u18_snc": { "County": "u18_c", "State": "u18_s" },
-      "5_17_fam_snc": { "County": "5_17_fam_c", "State": "5_17_fam_s" },
-      "mhi_snc": { "County": "mhi_c", "State": "mhi_s" },
-      "u5_s": { "State": "u5_s" },
-      "sa_sd": { "Elementary and Unified School District": "sa_eusd", "Secondary and Unified School District": "sa_susd" }
+      "ic_snc": {
+        "State": "ic_s",
+        "County": "ic_c"
+      },
+      "ui_snc": {
+        "State": "ui_s",
+        "County": "ui_c"
+      }
     },
     "MAP_TITLE_WIDGETS": [
       {
-        "Widget": "geoYear",
-        "separator": " "
+        "Widget": "geography",
+        "separator": " - ",
+        "converter": {
+          "ic_snc": "Percent Insured",
+          "ui_snc": "Percent Uninsured"
+        }
       },
       {
-        "Widget": "geography",
-        "converter": {
-          "aa_snc": "All Ages in Poverty",
-          "u18_snc": "Under Age 18 in Poverty",
-          "5_17_fam_snc": "Ages 5 to 17 in Families in Poverty",
-          "sa_sd": "Ages 5 to 17 in Families in Poverty",
-          "u5_s": "Under Age 5 in Poverty",
-          "mhi_snc": "Median Household Income"
-        }
+        "Widget": "geoYear"
+      }
+    ],
+    "MAP_SUBTITLE_WIDGETS": [
+      {
+        "Widget": "agelabel",
+        "separator": " | "
+      },
+      {
+        "Widget": "racelabel",
+        "separator": " | "
+      },
+      {
+        "Widget": "sexlabel",
+        "separator": " | "
+      },
+      {
+        "Widget": "incomelabel"
       }
     ],
     "outFields": {
-      "key": "s_measures",
+      "key": "s_searchtype",
       "fields": {
-        "sa_sd": ["NAME", "stabrev", "GEO_ID", "povrat5_17rv"],
-        "aa_snc": ["NAME", "ABBREV", "GEO_ID", "pvrtall", "pvrtall_me", "pvrtall_lb", "pvrtall_ub"],
-        "u18_snc": ["NAME", "ABBREV", "GEO_ID", "pvrt0_17", "pvrt0_17_me", "pvrt0_17_lb", "pvrt0_17_ub"],
-        "5_17_fam_snc": ["NAME", "ABBREV", "GEO_ID", "pvrt5_17r", "pvrt5_17r_me", "pvrt5_17r_lb", "pvrt5_17r_ub"],
-        "u5_s": ["NAME", "ABBREV", "GEO_ID", "pvrt0_4", "pvrt0_4_me", "pvrt0_4_lb", "pvrt0_4_ub"],
-        "mhi_snc": ["NAME", "ABBREV", "GEO_ID", "mhi", "mhi_me", "mhi_lb", "mhi_ub"]
+        "c": ["NAME", "ABBREV", "GEO_ID", {"appVar": "currField"},
+          {"appVar": "currField", "Model": { "regex": "pi|pu", "replacement": "pm" }}],
+        "sc": ["NAME", "STATE", "GEO_ID", {"appVar": "currField"},
+          {"appVar": "currField", "Model": {"regex": "pi|pu", "replacement": "pm"} }]
       }
     },
     "infoWindow": {
-      "size": [350, 250],
-      "key": "s_measures",
+      "size": [150, 250],
+      "key": "s_searchtype",
       "contents": {
-        "sa_sd": {
-          "title": "${NAME}, ${stabrev}",
-          "body": "ID: ${GEO_ID} <br> Estimate: ${povrat5_17rv:NumberFormat(places:1)}%"
-        },
-        "aa_snc": {
+        "c": {
           "title": "${NAME}, ${ABBREV}",
-          "body": "ID: ${GEO_ID} <br> Estimate: ${pvrtall:NumberFormat(places:1)}% <br> 90% Confidence Interval:  ${pvrtall_lb:NumberFormat(places:1}% to ${pvrtall_ub:NumberFormat(places:1}%"
+          "body": "ID: ${GEO_ID} <br> Estimate: ${FIELD_0:NumberFormat(places:1)}% <br> MOE:  ${FIELD_1:NumberFormat(places:1}%",
+          "fields": [ {"appVar": "currField"}, { "appVar": "currField","Model": {"regex": "pi|pu", "replacement": "pm"} }]
         },
-        "u18_snc": {
-          "title": "${NAME}, ${ABBREV}",
-          "body": "ID: ${GEO_ID} <br> Estimate: ${pvrt0_17:NumberFormat(places:1)}% <br> 90% Confidence Interval:  ${pvrt0_17_lb:NumberFormat(places:1} to ${pvrt0_17_ub:NumberFormat(places:1}%"
-        },
-        "5_17_fam_snc": {
-          "title": "${NAME}, ${ABBREV}",
-          "body": "ID: ${GEO_ID} <br> Estimate: ${pvrt5_17r:NumberFormat(places:1}% <br> 90% Confidence Interval:  ${pvrt5_17r_lb:NumberFormat(places:1} to ${pvrt5_17r_ub:NumberFormat(places:1}%"
-        },
-        "u5_s": {
+        "sc": {
           "title": "${NAME}",
-          "body":  "ID: ${GEO_ID} <br> Estimate: ${pvrt0_4:NumberFormat(places:1}% <br> 90% Confidence Interval:  ${pvrt0_4_lb:NumberFormat(places:1} to ${pvrt0_4_ub:NumberFormat(places:1}%"
-        },
-        "mhi_snc": {
-          "title": "${NAME}, ${ABBREV}",
-          "body":  "ID: ${GEO_ID} <br> Estimate: $${mhi:NumberFormat(places:0} <br> 90% Confidence Interval:  $${mhi_lb:NumberFormat(places:0} to $${mhi_ub:NumberFormat(places:0}"
+          "body": "ID: ${GEO_ID} <br> Estimate: ${FIELD_0:NumberFormat(places:1)}% <br> MOE:  ${FIELD_1:NumberFormat(places:1}",
+          "fields": [ {"appVar": "currField"}, { "appVar": "currField","Model": {"regex": "pi|pu", "replacement": "pm"} }]
         }
       }
     },
     "rendererOptions": {
-      "key": "map_geoSelector",
+      "key": "s_searchtype",
       "options": {
-        "aa_s": {
+        "sc": {
           "CLASSBREAKS_NUMBER": 4,
-          "FROM_COLOR": "#edf8fb",
-          "TO_COLOR": "#88419d",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "aa_c": {
-          "CLASSBREAKS_NUMBER": 6,
-          "FROM_COLOR": "#edf8fb",
-          "TO_COLOR": "#810f7c",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "sa_eusd": {
-          "CLASSBREAKS_NUMBER": 6,
-          "FROM_COLOR": "#f0f9e8",
-          "TO_COLOR": "#0868ac",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "sa_susd": {
-          "CLASSBREAKS_NUMBER": 6,
-          "FROM_COLOR": "#f0f9e8",
-          "TO_COLOR": "#0868ac",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "u5_s": {
-          "CLASSBREAKS_NUMBER": 4,
-          "FROM_COLOR": "#edf8e9",
-          "TO_COLOR": "#238b45",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "u18_s": {
-          "CLASSBREAKS_NUMBER": 4,
-          "FROM_COLOR": "#ffffd4",
-          "TO_COLOR": "#cc4c02",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "u18_c": {
-          "CLASSBREAKS_NUMBER": 6,
           "FROM_COLOR": "#ffffd4",
           "TO_COLOR": "#993404",
           "CLASSIFICATION_METHOD": "natural-breaks",
@@ -808,49 +1546,18 @@
           "LINECOLOR": [0, 0, 0, 1],
           "LINEWIDTH": 0.5
         },
-        "5_17_fam_s": {
-          "CLASSBREAKS_NUMBER": 4,
-          "FROM_COLOR": "#f0f9e8",
-          "TO_COLOR": "#2b8cbe",
+        "c": {
+          "CLASSBREAKS_NUMBER": 5,
+          "FROM_COLOR": "#ffffd4",
+          "TO_COLOR": "#993404",
           "CLASSIFICATION_METHOD": "natural-breaks",
           "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "5_17_fam_c": {
-          "CLASSBREAKS_NUMBER": 6,
-          "FROM_COLOR": "#f0f9e8",
-          "TO_COLOR": "#0868ac",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "percent",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "mhi_s": {
-          "CLASSBREAKS_NUMBER": 4,
-          "FROM_COLOR": "#ffffcc",
-          "TO_COLOR": "#238443",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "currency",
-          "LINESYMBOL": "STYLE_SOLID",
-          "LINECOLOR": [0, 0, 0, 1],
-          "LINEWIDTH": 0.5
-        },
-        "mhi_c": {
-          "CLASSBREAKS_NUMBER": 6,
-          "FROM_COLOR": "#ffffcc",
-          "TO_COLOR": "#238443",
-          "CLASSIFICATION_METHOD": "natural-breaks",
-          "DATAFORMAT": "currency",
           "LINESYMBOL": "STYLE_SOLID",
           "LINECOLOR": [0, 0, 0, 1],
           "LINEWIDTH": 0.5
         }
       }
     },
-
     "numberFormats": {
       "currency": {
         "UNITLABEL": "$",
@@ -861,29 +1568,27 @@
         "UNITLABEL": "%"
       }
     },
-
     "data": {
       "FIELD_CREATION_WIDGETS": [
         {
-          "Widget": "geography_selector",
+          "Widget": "geography",
           "converter": {
-            "aa_snc": "pvrtall",
-            "aa_c": "pvrtall",
-            "u18_snc": "pvrt0_17",
-            "u18_c": "pvrt0_17",
-            "5_17_fam_snc": "pvrt5_17r",
-            "5_17_fam_c": "pvrt5_17r",
-            "mhi_snc": "mhi",
-            "mhi_c": "mhi",
-            "u5_s": "pvrt0_4",
-            "5_17_fam_s": "pvrt5_17r",
-            "mhi_s": "mhi",
-            "u18_s": "pvrt0_17",
-            "aa_s": "pvrtall",
-            "sa_sd": "povrat5_17rv",
-            "sa_eusd": "povrat5_17rv",
-            "sa_susd": "povrat5_17rv"
-          }
+            "ic_snc": "pi",
+            "ui_snc": "pu"
+          },
+          "separator": "_"
+        },
+        {
+          "Widget": "age"
+        },
+        {
+          "Widget": "race"
+        },
+        {
+          "Widget": "sex"
+        },
+        {
+          "Widget": "income"
         }
       ],
       "MAP_LAYER_WIDGETS": [
@@ -891,40 +1596,14 @@
           "Widget": "geography_selector",
           "separator": "_",
           "converter": {
-            "aa_snc": "County",
-            "aa_c": "County",
-            "u18_snc": "County",
-            "u18_c": "County",
-            "5_17_fam_snc": "County",
-            "5_17_fam_c": "County",
-            "mhi_snc": "County",
-            "mhi_c": "County",
-            "u5_s": "State",
-            "5_17_fam_s": "State",
-            "mhi_s": "State",
-            "u18_s": "State",
-            "aa_s": "State",
-            "sa_sd": "ElementaryUnifiedSchoolDistrict",
-            "sa_eusd": "ElementaryUnifiedSchoolDistrict",
-            "sa_susd": "SecondaryUnifiedSchoolDistrict"
+            "s": "State",
+            "c": "County",
+            "sc": "County"
           },
           "rendererIndex": {
-            "aa_snc": 1,
-            "aa_c": 1,
-            "u18_snc": 2,
-            "u18_c": 2,
-            "5_17_fam_snc": 3,
-            "5_17_fam_c": 3,
-            "mhi_snc": 5,
-            "mhi_c": 5,
-            "u5_s": 4,
-            "5_17_fam_s": 3,
-            "mhi_s": 5,
-            "u18_s": 2,
-            "aa_s": 1,
-            "sa_sd": 0,
-            "sa_eusd": 0,
-            "sa_susd": 0
+            "s": 1,
+            "c": 0,
+            "sc": 0
           }
         },
         {
@@ -934,17 +1613,13 @@
       ],
       "MAP_LAYER_TO_SELECTOR_MAPPING": {
         "County": "counties",
-        "State": "states",
-        "ElementaryUnifiedSchoolDistrict": "districts",
-        "SecondaryUnifiedSchoolDistrict": "districts"
+        "State": "states"
       },
       "MAP_LAYER_PARENT_LAYER": {
-        "County": "State",
-        "ElementaryUnifiedSchoolDistrict": "State",
-        "SecondaryUnifiedSchoolDistrict": "State"
+        "County": "State"
       },
       "INFO_WINDOW_SIZE": [
-        350, 250
+        150, 250
       ],
       "DEFAULT_TRANSPARENCY": 0.8,
       "DEFAULT_MAP_XMIN": -14325844,
@@ -957,7 +1632,7 @@
       "SHOW_OVERVIEW_MAP": false,
       "OVERVIEW_LOCATION": "top-right",
       "LEGEND_NUMBER_OF_DECIMALS": 1,
-      "MAPSERVICE_MIN_YEAR": "2009",
+      "MAPSERVICE_MIN_YEAR": "2006",
       "SELECTION_FILL_SYMBOL": {
         "FILLSYMBOL": "STYLE_NULL",
         "FILLCOLOR": "green",
@@ -965,55 +1640,53 @@
         "LINECOLOR": "red",
         "LINEWIDTH": 2
       },
-      "MAP_SERVICE_DIR": "SA_Poverty_??/saipe_cedr/MapServer"
+      "MAP_SERVICE_DIR": "SA_HealthInsurance_??/sahie_cedr/MapServer"
     }
   },
   "grid-viz": {
     "subscribe": [
-      { "target": "system", "func": "resize", "event": "resize" },
-      { "target": "system", "func": "makeActive", "event": "layout_change" },
-      { "target": "s_measures", "func": "create", "event": "selection_selected" },
-      { "target": "s_USStOnly", "func": "reload", "event": "selection_selected" },
-      { "target": "s_inclUsTot", "func": "reload", "event": "selection_selected" },
-      { "target": "s_inclStTot", "func": "reload", "event": "selection_selected" },
-      { "target": "s_year", "func": "reload", "event": "selection_selected" },
-      { "target": "s_state", "func": "reload", "event": "selection_selected" },
-      { "target": "s_county", "func": "reload", "event": "selection_selected" },
-      { "target": "s_district", "func": "reload", "event": "selection_selected" },
-      { "target": "print", "func": "print", "event": "button_submit" },
-      { "target": "CSV", "func": "csv", "event": "button_submit" },
-      { "target": "PDF", "func": "pdf", "event": "button_submit" },
-      { "target": "ZIP", "func": "zip", "event": "button_submit" },
-      { "target": "show_sidebar", "func": "resize", "event": "button_submit" },
-      { "target": "hide_sidebar", "func": "resize", "event": "button_submit" }
+      { "target": "system",      "func": "makeActive","event": "layout_change"  },
+      { "target": "system",      "func": "resize",    "event": "resize" },
+      { "target": "s_measures",  "func": "create",    "event": "selection_selected" },
+      { "target": "s_year",      "func": "reload",    "event": "selection_selected" },
+      { "target": "s_statefips", "func": "reload",    "event": "selection_selected" },
+      { "target": "s_stcou",     "func": "reload",    "event": "selection_selected" },
+      { "target": "s_searchtype","func": "reload",    "event": "selection_selected" },
+      { "target": "s_agecat",    "func": "reload",    "event": "selection_selected" },
+      { "target": "s_racecat",   "func": "reload",    "event": "selection_selected" },
+      { "target": "s_sexcat",    "func": "reload",    "event": "selection_selected" },
+      { "target": "s_iprcat",    "func": "reload",    "event": "selection_selected" },
+      { "target": "show_sidebar","func": "resize",    "event": "button_submit" },
+      { "target": "hide_sidebar","func": "resize",    "event": "button_submit" },
+      { "target": "print",       "func": "print",     "event": "button_submit" },
+      { "target": "CSV",         "func": "csv",       "event": "button_submit" },
+      { "target": "PDF",         "func": "pdf",       "event": "button_submit" },
+      { "target": "ZIP",         "func": "zip",       "event": "button_submit" }
     ],
-    "update_when_changed": ["s_measures", "s_year", "s_state", "s_county", "s_district", "s_inclUsTot", "s_USStOnly", "s_inclStTot"],
+    "update_when_changed": ["s_measures", "s_year", "s_statefips", "s_stcou", "s_searchtype",
+      "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
     "PDFRecordLimit": 16000,
     "PDFLimitMsg": "There is a limit of 16,000 records for PDF output. You could reduce the number of rows, or save as a CSV or ZIP file.",
+    "header": ["s_measures"],
+    "subheader": ["s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+    "subheader_separator": " | ",
     "data_query": {
-      "filter_param": ["s_appName", "menu", "s_measures", "s_year", "s_state", "s_county", "s_district", "s_inclUsTot", "s_USStOnly", "s_inclStTot"],
-      "secondary_sort": "id asc, year desc",
       "include_column_ids": ["json"],
-      "override": {
-        "when": { "against": "s_measures", "value": ["sa_sd"] },
-        "fields": { "s_USStOnly": "n", "s_inclUsTot": "n", "s_inclStTot": "n" },
-        "set": false
-      }
+      "secondary_sort": "year desc,name asc"
     },
     "gridOptions": {
       "enableServerSideSorting": true,
       "enableColResize": true,
       "rowModelType": "pagination",
       "rowSelection": "single",
-      "headerHeight": 64,
+      "headerHeight": 48,
       "rowHeight": 22,
       "paginationPageSize": 40,
-      "paginationPageSizes": [ 40, 60, 80 ],
       "height": 501
     },
     "gridActions": {
       "highlight_rule": {
-        "testCol": "id",
+        "testCol": "stcou",
         "testRegex": "000$",
         "classIfTrue": "highlightRow",
         "classIfFalse": "regularRow"
@@ -1022,111 +1695,138 @@
     "views_key": "s_measures",
     "views": [
       {
-        "id": "aa_snc",
-        "label": "All Ages in Poverty",
+        "id": "ui_snc",
         "gridOptions": {
           "columnDefs": [
-            { "field": "year", "headerName": "Year", "width": 60 },
-            { "field": "id", "headerName": "FIPS", "width": 60 },
-            { "field": "name", "headerName": "Name", "width": 160, "cellTooltip": true },
-            { "field": "saepovu_all", "headerName": "Poverty Universe", "width": 100, "cellClass": "align-right" },
-            { "field": "saepovall_pt", "headerName": "Number in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepovall_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" },
-            { "field": "saepovrtall_pt", "headerName": "Percent in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepovrtall_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" }
+            {
+              "field": "year",
+              "headerName": "Year",
+              "width": 70
+            },
+            {
+              "field": "stcou",
+              "headerName": "FIPS",
+              "width": 80
+            },
+            {
+              "field": "name",
+              "headerName": "Name",
+              "width": 190
+            },
+            {
+              "headerName": "Demographic Group",
+              "children": [
+                {
+                  "field": "nipr",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nipr_moe",
+                  "headerName": "MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                }
+              ]
+            },
+            {
+              "headerName": "Uninsured",
+              "children": [
+                {
+                  "field": "nui",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nui_moe",
+                  "headerName": "MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctui",
+                  "headerName": "%",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctui_moe",
+                  "headerName": "%MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                }
+              ]
+            }
           ]
         }
       },
       {
-        "id": "u18_snc",
-        "label": "Under Age 18 in Poverty",
+        "id": "ic_snc",
         "gridOptions": {
           "columnDefs": [
-            { "field": "year", "headerName": "Year", "width": 60 },
-            { "field": "id", "headerName": "FIPS", "width": 60 },
-            { "field": "name", "headerName": "Name", "width": 160, "cellTooltip": true },
-            { "field": "saepovu_0_17", "headerName": "Poverty Universe", "width": 100, "cellClass": "align-right" },
-            { "field": "saepov0_17_pt", "headerName": "Number in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepov0_17_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" },
-            { "field": "saepovrt0_17_pt", "headerName": "Percent in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepovrt0_17_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" }
-          ]
-        }
-      },
-      {
-        "id": "5_17_fam_snc",
-        "label": "Ages 5 to 17 in Families in Poverty",
-        "gridOptions": {
-          "columnDefs": [
-            { "field": "year", "headerName": "Year", "width": 60 },
-            { "field": "id", "headerName": "FIPS", "width": 60 },
-            { "field": "name", "headerName": "Name", "width": 160, "cellTooltip": true },
-            { "field": "saepovu_5_17r", "headerName": "Poverty Universe", "width": 100, "cellClass": "align-right" },
-            { "field": "saepov5_17_pt", "headerName": "Number in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepov5_17_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" },
-            { "field": "saepovrt5_17_pt", "headerName": "Percent in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepovrt5_17_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" }
-          ]
-        }
-      },
-      {
-        "id": "u5_s",
-        "label": "Under Age 5 in Poverty",
-        "gridActions": {
-          "highlight_rule": {
-          }
-        },
-        "gridOptions": {
-          "columnDefs": [
-            { "field": "year", "headerName": "Year", "width": 60 },
-            { "field": "id", "headerName": "FIPS", "width": 60 },
-            { "field": "name", "headerName": "Name", "width": 160, "cellTooltip": true },
-            { "field": "saepovu_0_4", "headerName": "Poverty Universe", "width": 100, "cellClass": "align-right" },
-            { "field": "saepov0_4_pt", "headerName": "Number in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepov0_4_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" },
-            { "field": "saepovrt0_4_pt", "headerName": "Percent in Poverty", "width": 100, "cellClass": "align-right" },
-            { "field": "saepovrt0_4_cnf90", "headerName": "90% Confidence Interval", "width": 100, "cellClass": "align-center" }
-          ]
-        }
-      },
-      {
-        "id": "mhi_snc",
-        "label": "Median Household Income",
-        "gridOptions": {
-          "height": 505,
-          "columnDefs": [
-            { "field": "year", "headerName": "Year", "width": 60 },
-            { "field": "id", "headerName": "FIPS", "width": 60 },
-            { "field": "name", "headerName": "Name", "width": 160, "cellTooltip": true },
-            { "field": "saemhi_pt", "headerName": "Median Household Income", "width": 200, "cellClass": "align-right" },
-            { "field": "saemhi_cnf90", "headerName": "90% Confidence Interval", "width": 200, "cellClass": "align-center" }
-          ]
-        }
-      },
-      {
-        "id": "sa_sd",
-        "label": "Ages 5 to 17 in Families in Poverty",
-        "gridActions": {
-          "highlight_rule": {
-            "testCol": "id",
-            "testRegex": "00000$",
-            "classIfTrue": "highlightRow",
-            "classIfFalse": "regularRow"
-          }
-        },
-        "gridOptions": {
-          "height": 474,
-          "columnDefs": [
-            { "field": "year", "headerName": "Year", "width": 60 },
-            { "field": "id", "headerName": "FIPS", "width": 60 },
-            { "field": "name", "headerName": "Name", "width": 160, "cellTooltip": true },
-            { "field": "grade", "headerName": "Grade", "width": 60 },
-            { "field": "saepovall_pt", "headerName": "Total Population", "width": 80, "cellClass": "align-right" },
-            { "field": "saepov5_17_pt", "headerName": "Relevant Ages 5 to 17", "width": 80, "cellClass": "align-right" },
-            { "field": "saepov5_17_hh_pt", "headerName": "Relevant Ages 5 to 17 in Families in Poverty", "width": 80, "cellClass": "align-right" },
-            { "field": "saepovrt5_17_pt", "headerName": "Relevant Ages 5 to 17 Ratio", "width": 80, "cellClass": "align-right" },
-            { "field": "mapurl", "headerName": "Reference Map", "width": 120, "cellClass": "align-center", "valueGetter": "linkFormatter",
-              "formatoptions": { "template": "<a href='!v!' target='_blank' class='grid-link'>Map</a>", "noLink": "No Map" } }
+            {
+              "field": "year",
+              "headerName": "Year",
+              "width": 70
+            },
+            {
+              "field": "stcou",
+              "headerName": "FIPS",
+              "width": 80
+            },
+            {
+              "field": "name",
+              "headerName": "Name",
+              "width": 190
+            },
+            {
+              "headerName": "Demographic Group",
+              "children": [
+                {
+                  "field": "nipr",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nipr_moe",
+                  "headerName": "MOE",
+                  "width":70,
+                  "cellClass": "align-right"
+                }
+              ]
+            },
+            {
+              "headerName": "Insured",
+              "children": [
+                {
+                  "field": "nic",
+                  "headerName": "Number",
+                  "width": 90,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "nic_moe",
+                  "headerName": "MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctic",
+                  "headerName": "%",
+                  "width": 70,
+                  "cellClass": "align-right"
+                },
+                {
+                  "field": "pctic_moe",
+                  "headerName": "%MOE",
+                  "width": 70,
+                  "cellClass": "align-right"
+                }
+              ]
+            }
           ]
         }
       }
@@ -1134,163 +1834,182 @@
   },
   "trends-viz": {
     "datatype": "json",
-    "max_lines": "1100",
+    "header": ["s_measures"],
+    "subheader": ["s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
+    "subheader_separator": " | ",
+    "max_lines": "400",
     "text": {
       "default": "Sorry, you need to select no more than !M! entities; currently there are !S! selected. You can use the map or the buttons on the left to make selections."
     },
     "data_query": {
-      "filter_param": ["s_appName", "menu", "s_measures", "s_state", "s_county", "s_district", "s_inclUsTot", "s_USStOnly", "s_inclStTot"],
+      "filter_param": ["s_appName", "menu", "s_measures", "s_statefips", "s_stcou", "s_searchtype", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
       "include_column_ids": ["json"],
-      "override": {
-        "when": {
-          "and": [
-            { "against": "s_state", "value": [] },
-            { "or": [
-              { "and": [
-                { "against": "s_county", "value": [] },
-                { "not": { "against": "s_measures", "value": ["sa_sd"] } }
-              ] },
-              { "and": [
-                { "against": "s_district", "value": [] },
-                { "against": "s_measures", "value": ["sa_sd"] }
-              ] }
-            ] }
-          ]
+      "override": [
+        {
+          "when": {
+            "against": "s_searchtype",
+            "value": ["s"]
+          },
+          "fields": {
+            "s_searchtype": "ns"
+          },
+          "set": "false"
         },
-        "fields": { "s_USStOnly": "y" },
-        "set": true
-      }
+        {
+          "when": {
+            "against": "s_searchtype",
+            "value": ["sc"]
+          },
+          "fields": {
+            "s_searchtype": "nsc"
+          },
+          "set": "false"
+        },
+        {
+          "when": {
+            "and": [
+              {
+                "against": "s_statefips",
+                "value": []
+              },
+              {
+                "against": "s_stcou",
+                "value": []
+              },
+              {
+                "or": [
+                  {
+                    "against": "s_searchtype",
+                    "value": ["c"]
+                  },
+                  {
+                    "against": "s_searchtype",
+                    "value": ["sc"]
+                  }
+                ]
+              }
+            ]
+          },
+          "fields": {
+            "s_searchtype": "ns"
+          },
+          "set": "false"
+        }
+      ]
     },
-    "x_values": ["1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009",
-      "2010", "2011", "2012", "2013", "2014", "2015"],
-    "update_when_changed": ["s_measures", "s_state", "s_county", "s_district", "s_inclUsTot", "s_USStOnly", "s_inclStTot"],
+    "x_values": ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014"],
+    "update_when_changed": ["s_measures", "s_statefips", "s_stcou", "s_searchtype", "s_agecat", "s_racecat", "s_sexcat", "s_iprcat"],
     "subscribe": [
-      { "target": "system", "func": "resize", "event": "resize" },
-      { "target": "system", "func": "makeActive", "event": "layout_change" },
-      { "target": "s_measures", "func": "create", "event": "selection_selected" },
-      { "target": "s_USStOnly", "func": "create", "event": "selection_selected" },
-      { "target": "s_inclUsTot", "func": "create", "event": "selection_selected" },
-      { "target": "s_inclStTot", "func": "create", "event": "selection_selected" },
-      { "target": "s_state", "func": "create", "event": "selection_selected" },
-      { "target": "s_county", "func": "create", "event": "selection_selected" },
-      { "target": "s_district", "func": "create", "event": "selection_selected" },
-      { "target": "jpeg", "func": "jpeg", "event": "button_submit",
-        "when": { "against": "menu", "value": ["trends"] }
+      {
+        "target": "system",
+        "func": "makeActive",
+        "event": "layout_change"
       },
-      { "target": "print", "func": "print", "event": "button_submit",
-        "when": { "against": "menu", "value": ["trends"] }
+      {
+        "target": "messenger",
+        "func": "resize",
+        "event": "resize"
       },
-      { "target": "PDF", "func": "pdf", "event": "button_submit",
-        "when": { "against": "menu", "value": ["trends"] }
+      {
+        "target": "menu",
+        "func": "create",
+        "event": "selection_selected"
       },
-      { "target": "ZIP", "func": "zip", "event": "button_submit",
-        "when": { "against": "menu", "value": ["trends"] }
+      {
+        "target": "s_statefips",
+        "func": "create",
+        "event": "selection_selected"
       },
-      { "target": "show_sidebar", "func": "resize", "event": "button_submit" },
-      { "target": "hide_sidebar", "func": "resize", "event": "button_submit" }
+      {
+        "target": "s_stcou",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_searchtype",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_agecat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_racecat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_sexcat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "s_iprcat",
+        "func": "create",
+        "event": "selection_selected"
+      },
+      {
+        "target": "jpeg",
+        "func": "jpeg",
+        "event": "button_submit",
+        "when": {
+          "against": "menu",
+          "value": ["trends"]
+        }
+      },
+      {
+        "target": "print",
+        "func": "print",
+        "event": "button_submit",
+        "when": {
+          "against": "menu",
+          "value": ["trends"]
+        }
+      },
+      {
+        "target": "PDF",
+        "func": "pdf",
+        "event": "button_submit",
+        "when": {
+          "against": "menu",
+          "value": ["trends"]
+        }
+      }
     ],
     "views_key": "s_measures",
     "views": [
       {
-        "id": "aa_snc",
-        "start_year": "1997",
-        "break_point": "2004",
+        "id": "ui_snc",
+        "start_year": "2006",
+        "break_point": "2007",
         "format": "percent",
-        "label": "All Ages in Poverty",
+        "label": "Percent Uninsured",
         "y_axis_label": "Percent",
         "pointData": {
-          "y": "saepovrtall_pt",
-          "loCI": "saepovrtall_lb90",
-          "hiCI": "saepovrtall_ub90",
-          "series": "id",
+          "y": "pctui",
+          "loCI": "pctui_lb90",
+          "hiCI": "pctui_ub90",
+          "series": "stcou",
           "x": "year",
-          "field": "field"
+          "name": "name"
         }
       },
       {
-        "id": "u18_snc",
-        "start_year": "1997",
-        "break_point": "2004",
+        "id": "ic_snc",
+        "start_year": "2006",
+        "break_point": "2007",
         "format": "percent",
-        "label": "Under Age 18 in Poverty",
+        "label": "Percent Insured",
         "y_axis_label": "Percent",
         "pointData": {
-          "y": "saepovrt0_17_pt",
-          "loCI": "saepovrt0_17_lb90",
-          "hiCI": "saepovrt0_17_ub90",
-          "series": "id",
+          "y": "pctic",
+          "loCI": "pctic_lb90",
+          "hiCI": "pctic_ub90",
+          "series": "stcou",
           "x": "year",
-          "field": "field"
-        }
-      },
-      {
-        "id": "5_17_fam_snc",
-        "start_year": "1997",
-        "break_point": "2004",
-        "format": "percent",
-        "label": "Ages 5 to 17 in Families in Poverty",
-        "y_axis_label": "Percent",
-        "pointData": {
-          "y": "saepovrt5_17_pt",
-          "loCI": "saepovrt5_17_lb90",
-          "hiCI": "saepovrt5_17_ub90",
-          "series": "id",
-          "x": "year",
-          "field": "field"
-        }
-      },
-      {
-        "id": "u5_s",
-        "start_year": "1995",
-        "break_point": "2004",
-        "format": "percent",
-        "label": "Under Age 5 in Poverty",
-        "y_axis_label": "Percent",
-        "data_query": {
-          "filter_param": ["s_appName", "menu", "s_measures", "s_state", "s_county", "s_inclUsTot", "s_USStOnly", "s_inclStTot"],
-          "override": {
-            "when": { "against": "s_measures", "value": ["u5_s"] },
-            "fields": { "s_USStOnly": "y", "s_inclStTot": "y" },
-            "set": false
-          }
-        },
-        "pointData": {
-          "y": "saepovrt0_4_pt",
-          "loCI": "saepovrt0_4_lb90",
-          "hiCI": "saepovrt0_4_ub90",
-          "series": "id",
-          "x": "year",
-          "field": "field"
-        }
-      },
-      {
-        "id": "mhi_snc",
-        "start_year": "1997",
-        "break_point": "2004",
-        "format": "currency",
-        "label": "Median Household Income",
-        "y_axis_label": "Income",
-        "pointData": {
-          "y": "saemhi_pt",
-          "loCI": "saemhi_lb90",
-          "hiCI": "saemhi_ub90",
-          "series": "id",
-          "x": "year",
-          "field": "field"
-        }
-      },
-      {
-        "id": "sa_sd",
-        "start_year": "1999",
-        "format": "percent",
-        "label": "Ages 5 to 17 in Families in Poverty",
-        "y_axis_label": "Percent",
-        "legend_class": "wide",
-        "pointData": {
-          "y": "saepovrt5_17_pt",
-          "series": "id",
-          "x": "year",
-          "field": "field"
+          "name": "name"
         }
       }
     ]
