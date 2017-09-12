@@ -26,13 +26,12 @@ export class SelectorWidgetService {
   //     - if an array, it is the selection (one or more {id:x,label:y} members)
   //     - if "first", need to fetch from the database using &selectedIndexes=1
   // defaultToFirst is a CDR_WIDGET constant: DEFAULT_SELECT_FIRST (true) or NO_DEFAULT_SELECTION (false)
-  findSelected(config, defaultToFirst?) {
+  findSelected(config, options?) {
     let selected = [];
     if (config.data) {
-      if (!defaultToFirst) {
-        defaultToFirst = ((config.selection_required && _.isUndefined(config.default_value))
+      const defaultToFirst = (options && options.defaultToFirst)
+        || ((config.selection_required && _.isUndefined(config.default_value))
           || config.default_value === 'first');
-      }
       selected = this.scanForSelected(config.data, defaultToFirst);
     }
     if (_.isEmpty(selected) && _.isArray(config.default_value)) {
@@ -45,7 +44,9 @@ export class SelectorWidgetService {
   // else see if there is anything selected by default and get that, either from config or database
   // and if there is update the selections service and send the message with labels
   getInitialSelections(id, config) {
+    let selected = [];
     if (this.selectionsService.hasSelections(id)) {
+      selected = this.selectionsService.selectedIdsForAWidget(id);
       // these are from bookmarks, so let buttons know to set names (may have timing issue)
       // TODO: implement defaultNamesReady or whatever system we use to get names for initial selections
       // this.selectionsService.defaultNamesReady().then(function () {
@@ -53,7 +54,7 @@ export class SelectorWidgetService {
       // });
     } else {
       // see if we need to initialize
-      const selected = this.findSelected(config);
+      selected = this.findSelected(config);
       if (_.isEmpty(selected) && (config.selection_required || config.default_value === 'first')) {
         // fetch the data from the database, using a special syntax to request just the first item
         const extras = {
@@ -71,6 +72,7 @@ export class SelectorWidgetService {
         }
       }
     }
+    return selected;
   }
 
   private scanForSelected(data: Array<any>, first: boolean): Array<any> {

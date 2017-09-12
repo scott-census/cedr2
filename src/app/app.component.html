@@ -4,7 +4,12 @@
     Welcome to {{title}}!
   </h1>
 </div>
-<cdr-button id="print"></cdr-button><cdr-button id="Feedback"></cdr-button><cdr-button id="year_button"></cdr-button>
+<div>
+  Buttons: <cdr-button id="print"></cdr-button><cdr-button id="Feedback"></cdr-button><cdr-button id="year_button"></cdr-button>
+</div>
+<div>
+  Checkbox: <cdr-checkbox id="s_searchtype"></cdr-checkbox>
+</div>
 <h2>Here are the ids from the config file: </h2>
 <ul>
   <li *ngFor="let id of ids" >
