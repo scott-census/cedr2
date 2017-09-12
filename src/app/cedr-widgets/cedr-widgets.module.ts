@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 
@@ -16,6 +16,7 @@ import { CdrInstructionsComponent } from './cdr-instructions/cdr-instructions.co
     CdrButtonComponent,
     CdrCheckboxComponent,
     CdrInstructionsComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CedrWidgetsModule { }
